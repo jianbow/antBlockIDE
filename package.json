@@ -1,0 +1,11 @@
+{
+  "name": "antblockide",
+  "version": "1.0.0",
+  "description": "IDE for Army Ants antBlock",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Army Ants",
+  "license": "ISC"
+}
