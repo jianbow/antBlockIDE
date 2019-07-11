@@ -14,6 +14,7 @@ import re
 import subprocess
 import tempfile
 import urllib
+import json
 from optparse import OptionParser
 
 
@@ -69,6 +70,10 @@ def guess_port_name():
         if ttys:
             portname = "/dev/" + ttys[0]
     logging.info("Guessing port name as %s", portname)
+    x = {"port": portname}
+    y = json.dumps(x)
+    with open('arduinoSettings.json', 'w') as outfile:  
+        json.dump(x, outfile)
     return portname
 
 

@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\blockly",
     "\\blockly\\blocks"
   ],
-  "SelectedNode": "\\blockly\\lua_compressed.js",
+  "SelectedNode": "\\package.json",
   "PreviewInSolutionExplorer": false
 }
