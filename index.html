@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -6,19 +6,51 @@
   <!--include necessary javascript and css libraries and such
   //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH-->
   <script src="blockly/blockly_compressed.js"></script>
+  <script src="blockly/javascript_compressed.js"></script>
   <script src="blockly/blocks_compressed.js"></script>
+  <script src="blockly/arduino_compressed.js"></script>
   <script src="blockly/msg/js/en.js"></script>
   <script src="main.js"></script>
+  <script src="antBot/upload.js"></script>
+
+  <script src="blockly/blocks/robot.js"></script>
   <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
   <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
   <script src="bootstrap-4.3.1-dist\js\bootstrap.min.js"></script>
+  
+  <!--To make the code look pretty -->
+  <link rel="stylesheet" href="highlight\styles\default.css">
+  <script src="highlight\highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 2;
+    }
+    body {
+      background-color: #fff;
+      height: 100%;
+      overflow: hidden;
+    }
+    #blocklyDiv {
+      height: 50%;
+    }
+	#rowOne{
+	   height:90vh;
 
+	}
+	#codeDiv{
+	  border-style: solid;
+	  border-width: 2px;
+	  border-color: #42cbf5;
+	  background-color: #F3EFF3;
+	}
+  </style>
 </head>
 <body>
 
 
 <!--NAVBAR. ADD BUTTONS HERE-->
-
 <nav class="navbar navbar-expand-sm" style="background-color: #00630a;">
   <div class="navbar-brand text-white" href="#">
   <i class="fas fa-code mr-2"></i>antBlock
@@ -30,12 +62,12 @@
     <ul class="navbar-nav">
       <li class="nav-item active">
 	  <!--CHANGE THE ONCLICK FUNCTION TO THE FUNCTION IN THE NEW JS FILE.-->
-        <button type="button" class="btn btn-outline-light" data-toggle="tooltip" data-placement="bottom" title="Verify" onclick="SOMEFUNCTION()">
+        <button type="button" class="btn btn-outline-light" data-toggle="tooltip" data-placement="bottom" title="Verify" onclick="myUpdateFunction()">
 			<i class="fas fa-check-circle"></i>
 		</button>
       </li>
       <li class="nav-item active">
-        <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload()">
+        <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="uploadToArduino()">
 			<i class="fas fa-arrow-circle-down"></i>
 		</button>
       </li>
@@ -44,8 +76,104 @@
   </div>
 </nav>
 
+<script>
+function myUpdateFunction(event) {
+  var code = Blockly.Arduino.workspaceToCode(workspace);
+  alert(code);
+  document.getElementById("code").innerHTML = code;
+  
+}
+workspace.addChangeListener(myUpdateFunction);
+
+function uploadToArduino(event) {
+	var code = Blockly.Arduino.workspaceToCode(workspace);
+	alert(code);
+	upload(code);
+	alert("Upload complete");
+}
+</script>
 
 
+<div class="row container-fluid my-4" id="rowOne">
+<div class="col-8">
+	<div id="blocklyDiv" style="height: 95%; width: 100%"></div>
+</div>
 
+<script>
+Blockly.HSV_SATURATION = .55// 0 (inclusive) to 1 (exclusive), defaulting to 0.45
+Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
+
+</script>
+<!-- include all the blocks in the toolbox-->
+<xml id="toolbox" style="display: none">
+    <category name="Robot" colour=0>
+        <block type="robot_start"></block>
+        <block type="robot_end"></block>
+		
+
+    </category>
+  <category name="Logic" colour="%{BKY_LOGIC_HUE}">
+      <category name="If">
+        <block type="controls_if"></block>
+        <block type="controls_if">
+          <mutation else="1"></mutation>
+        </block>
+        <block type="controls_if">
+          <mutation elseif="1" else="1"></mutation>
+        </block>
+      </category>
+      <category name="Boolean" colour="%{BKY_LOGIC_HUE}">
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+        <block type="logic_ternary"></block>
+      </category>
+    </category>
+    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <field name="VAR">i</field>
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <value name="BY">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+
+
+</xml>
+
+<div class="col-4" id="codeDiv" >
+<pre><code class="javascript" id="code"></code></pre>
+
+</div>
+
+</div>
+  <script>
+  var workspace = Blockly.inject('blocklyDiv',
+      {toolbox: document.getElementById('toolbox')});
+</script>
 </body>
 </html>
