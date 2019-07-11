@@ -8,7 +8,12 @@
   <script src="blockly/blockly_compressed.js"></script>
   <script src="blockly/javascript_compressed.js"></script>
   <script src="blockly/blocks_compressed.js"></script>
+  <script src="blockly/arduino_compressed.js"></script>
   <script src="blockly/msg/js/en.js"></script>
+  <script src="main.js"></script>
+  <script src="antBot/upload.js"></script>
+
+
   <script src="blockly/blocks/robot.js"></script>
   <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
   <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
@@ -63,7 +68,7 @@
 		</button>
       </li>
       <li class="nav-item active">
-        <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="SOMEFUNCTION1()">
+        <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="uploadToArduino()">
 			<i class="fas fa-arrow-circle-down"></i>
 		</button>
       </li>
@@ -74,12 +79,20 @@
 
 <script>
 function myUpdateFunction(event) {
-  var code = Blockly.JavaScript.workspaceToCode(workspace);
+  var code = Blockly.Arduino.workspaceToCode(workspace);
   alert(code);
   document.getElementById("code").innerHTML = code;
   
 }
 workspace.addChangeListener(myUpdateFunction);
+
+
+function uploadToArduino(event) {
+	var code = Blockly.Arduino.workspaceToCode(workspace);
+	alert(code);
+	upload(code);
+	alert("Upload complete");
+}
 </script>
 
 
