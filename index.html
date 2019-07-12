@@ -1,52 +1,54 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>antBlock IDE</title>
-  <!--include necessary javascript and css libraries and such
-  //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH-->
-  <script src="blockly/blockly_compressed.js"></script>
-  <script src="blockly/javascript_compressed.js"></script>
-  <script src="blockly/blocks_compressed.js"></script>
-  <script src="blockly/arduino_compressed.js"></script>
-  <script src="blockly/msg/js/en.js"></script>
-  <script src="main.js"></script>
-  <script src="antBot/upload.js"></script>
 
+    <meta charset="utf-8">
+    <title>antBlock IDE</title>
+    <!--include necessary javascript and css libraries and such
+    //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH-->
+    <script src="blockly/blockly_compressed.js"></script>
+    <script src="blockly/javascript_compressed.js"></script>
+    <script src="blockly/blocks_compressed.js"></script>
+    <script src="blockly/msg/js/en.js"></script>
+    <script src="blockly/blocks/robot.js"></script>
+    <script src="arduino_manager.js"></script>
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
+    <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
+    <script src="bootstrap-4.3.1-dist\js\bootstrap.min.js"></script>
+    <script src="./renderer.js"></script>
 
-  <script src="blockly/blocks/robot.js"></script>
-  <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
-  <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
-  <script src="bootstrap-4.3.1-dist\js\bootstrap.min.js"></script>
-  
-  <!--To make the code look pretty -->
-  <link rel="stylesheet" href="highlight\styles\default.css">
-  <script src="highlight\highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 2;
-    }
-    body {
-      background-color: #fff;
-      height: 100%;
-      overflow: hidden;
-    }
-    #blocklyDiv {
-      height: 50%;
-    }
-	#rowOne{
-	   height:90vh;
+    <!--To make the code look pretty -->
+    <link rel="stylesheet" href="highlight\styles\default.css">
+    <script src="highlight\highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 2;
+        }
 
-	}
-	#codeDiv{
-	  border-style: solid;
-	  border-width: 2px;
-	  border-color: #42cbf5;
-	  background-color: #F3EFF3;
-	}
-  </style>
+        body {
+            background-color: #fff;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #blocklyDiv {
+            height: 50%;
+        }
+
+        #rowOne {
+            height: 90vh;
+        }
+
+        #codeDiv {
+            border-style: solid;
+            border-width: 2px;
+            border-color: #42cbf5;
+            background-color: #F3EFF3;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -68,20 +70,32 @@
 		</button>
       </li>
       <li class="nav-item active">
-        <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="uploadToArduino()">
-			<i class="fas fa-arrow-circle-down"></i>
-		</button>
+
+          <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload()">
+              <i class="fas fa-arrow-circle-down"></i>
+          </button>
+      </li>
+      <li class="nav-item active">
+          <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="jSON test" id="testButton" onclick="help()">
+              <i class="fas fa-ad"></i>
+          </button>
+
       </li>
 
     </ul>
   </div>
 </nav>
 
+
 <script>
-function myUpdateFunction(event) {
-  var code = Blockly.Arduino.workspaceToCode(workspace);
+
+//THIS FUNCTION UPDATES THE CONVERTED CODE. MAKE THIS FUNCTION WORK WITH THE CHANGE LISTENER FOR INSTANT CHANGE OF CODE
+function myUpdateFunction() {
+  var code = Blockly.JavaScript.workspaceToCode(workspace);
+
   alert(code);
-  document.getElementById("code").innerHTML = code;
+    document.getElementById("code").innerHTML = code;
+}
   
 }
 workspace.addChangeListener(myUpdateFunction);
@@ -101,7 +115,9 @@ function uploadToArduino(event) {
 	<div id="blocklyDiv" style="height: 95%; width: 100%"></div>
 </div>
 
+
 <script>
+//WE CHANGE THE HSV SO IT DOESN'T LOOK LIKE DEFAULT BLOCKLY
 Blockly.HSV_SATURATION = .55// 0 (inclusive) to 1 (exclusive), defaulting to 0.45
 Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
@@ -166,15 +182,75 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
 </xml>
 
-<div class="col-4" id="codeDiv" >
-<pre><code class="javascript" id="code"></code></pre>
+<div class="col-4" id="codeDiv">
+
+    <pre><code class="javascript" id="code"></code></pre>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" onclick="displayCode()">Code</button>
+        <button type="button" class="btn btn-secondary" onclick="displayMessages()">Messages</button>
+    </div>
 
 </div>
 
 </div>
-  <script>
+
+
+<script>
+    //INJECT BLOCKLY INTO DIV
   var workspace = Blockly.inject('blocklyDiv',
       {toolbox: document.getElementById('toolbox')});
 </script>
+
+    <script>
+        //TESTING FOR NODEJS IN APP
+        //THIS READS JSON FILE AND OUTPUTS IN CONSOLE (CTRL+SHIFT+I TO VIEW)
+        const fs = require('fs');
+        let rawdata = fs.readFileSync('arduino-manager/arduinoSettings.json');
+        let student = JSON.parse(rawdata);
+        console.log(student.port);  
+
+    </script>
+<script>
+
+    //THIS FUNCTION RUNS COMTEST, WHICH FINDS ALL DEVICES PLUGGED INTO THE COMPUTER AND GIVES THEIR COM PORT
+    //SHOULD FIND ALL PORTS, PUT INTO JSON, READ JSON, INJECT INTO DIV
+
+
+    function help() { 
+      
+    // Use child_process.spawn method from  
+    // child_process module and assign it 
+    // to variable spawn 
+    var spawn = require("child_process").spawn; 
+      
+    // Parameters passed in spawn - 
+    // 1. type_of_script 
+    // 2. list containing Path of the script 
+    //    and arguments for the script  
+      
+    // E.g : http://localhost:3000/name?firstname=Mike&lastname=Will 
+    // so, first name = Mike and last name = Will 
+
+    //CALL PYTHON FILE, PYTHON WRITES TO JSON
+    var process = spawn('python',["./comTest.py"] ); 
+  
+    // Takes stdout data from script which executed 
+    // with arguments and send this data to res object 
+    //process.stdout.on('data', function(data) { 
+   //     res.send(data.toString());
+
+    //READ JSON AND DISPLAY
+    const fs = require('fs');
+        let rawdata = fs.readFileSync('arduino-manager/arduinoSettings.json');
+        let student = JSON.parse(rawdata);
+        //console.log(student.port);  
+        document.getElementById("code").innerHTML = student.port;
+    }
+
+  
+</script>
+
+
 </body>
 </html>

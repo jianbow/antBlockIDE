@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\blockly",
-    "\\blockly\\blocks"
+    "\\arduino-manager"
   ],
-  "SelectedNode": "\\blockly\\lua_compressed.js",
+  "SelectedNode": "\\arduino-manager\\comTest.py",
   "PreviewInSolutionExplorer": false
 }
