@@ -1,10 +1,25 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
+const { shell } = require('electron');
+
+// Open a local file in the default app
+
+//UNCOMMENT THE SHELL OPEN ITME LINE TO RUN THE BATCH FILE TO CREATE LOCAL SERVER FOR ARDUINO
+
+//shell.openItem(app.getAppPath() + '\\arduino-manager\\load_server.bat');
+
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+//store.set('foo.bar', false);
+//console.log(store.get('foo'));
+
+
+
+//console.log(app.getPath('userData'));
 
 function createWindow () {
   // Create the browser window.
@@ -12,8 +27,11 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
+        preload: path.join(__dirname, 'preload.js'),
+        //THIS ONE LINE OF CODE TOOK ME 3 DAYS. ELECTRON DOCS LIE AND SAY NODE API USABLE. CHANGED SINCE VERSION 5, MUST SET TRUE
+        nodeIntegration: true
+      }
+
   })
 
   // and load the index.html of the app.

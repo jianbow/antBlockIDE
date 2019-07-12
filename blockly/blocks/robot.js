@@ -55,20 +55,3 @@ Blockly.Blocks['robot_end'] = {
     }
 };
 
-Blockly.Blocks['robot_delay'] = {
-    init: function () {
-        this.jsonInit({
-            "type": "example_label",
-            "message0": "Delay %1",
-            "args0": [
-                {
-                    "type": "input_dummy"
-                }
-            ],
-            "colour": hue,
-            "previousStatement": "Action",
-            "nextStatement": "Action"
-        });
-    }
-};
-
