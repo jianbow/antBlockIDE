@@ -5,14 +5,42 @@
   <title>antBlock IDE</title>
   <!--include necessary javascript and css libraries and such
   //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH-->
+  
+  <!-- for when we're done with adding blocks and stuff 
   <script src="blockly/blockly_compressed.js"></script>
   <script src="blockly/javascript_compressed.js"></script>
   <script src="blockly/blocks_compressed.js"></script>
-  <script src="blockly/arduino_compressed.js"></script>
+  <script src="blockly/arduino_compressed.js"></script> 
   <script src="blockly/msg/js/en.js"></script>
+  -->
+
+  <!-- for while we're developing blockly stuff -->
+  <script src="blockly/blockly_uncompressed.js"></script>
+  <script src="blockly/blocks/logic.js"></script>
+  <script src="blockly/blocks/loops.js"></script> 
+  <script src="blockly/blocks/math.js"></script>
+  <script src="blockly/blocks/text.js"></script>
+  <script src="blockly/blocks/lists.js"></script>
+  <script src="blockly/blocks/colour.js"></script>
+  <script src="blockly/blocks/variables.js"></script>
+  <script src="blockly/blocks/procedures.js"></script>
+  <script src="blockly/blocks/robot.js"></script>
+  <script src="blockly/blocks/variables_dynamic.js"></script>
+  <script src="blockly/generators/arduino.js"></script>
+  <script src="blockly/generators/arduino/base.js"></script>
+  <script src="blockly/generators/arduino/control.js"></script>
+  <script src="blockly/generators/arduino/grove.js"></script>
+  <script src="blockly/generators/arduino/logic.js"></script>
+  <script src="blockly/generators/arduino/math.js"></script>
+  <script src="blockly/generators/arduino/procedures.js"></script>
+  <script src="blockly/generators/arduino/text.js"></script>
+  <script src="blockly/generators/arduino/variables.js"></script>
+  <script src="blockly/msg/messages.js"></script>
+
+  
+  <!-- our files -->
   <script src="main.js"></script>
   <script src="antBot/upload.js"></script>
-
 
   <script src="blockly/blocks/robot.js"></script>
   <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
@@ -111,6 +139,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
     <category name="Robot" colour=0>
         <block type="robot_start"></block>
         <block type="robot_end"></block>
+		<block type="robot_delay"></block>
 
     </category>
   <category name="Logic" colour="%{BKY_LOGIC_HUE}">
