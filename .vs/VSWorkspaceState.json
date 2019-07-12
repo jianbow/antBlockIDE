@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\blockly\\blocks"
+    "\\arduino-manager"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\arduino-manager\\comTest.py",
   "PreviewInSolutionExplorer": false
 }
