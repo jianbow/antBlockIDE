@@ -1,79 +1,83 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>antBlock IDE</title>
-  <!--include necessary javascript and css libraries and such
-  //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH-->
-  
-  <!-- for when we're done with adding blocks and stuff 
-  <script src="blockly/blockly_compressed.js"></script>
-  <script src="blockly/javascript_compressed.js"></script>
-  <script src="blockly/blocks_compressed.js"></script>
-  <script src="blockly/arduino_compressed.js"></script> 
-  <script src="blockly/msg/js/en.js"></script>
-  -->
 
-  <!-- for while we're developing blockly stuff -->
-  <script src="blockly/blockly_uncompressed.js"></script>
-  <script src="blockly/blocks/logic.js"></script>
-  <script src="blockly/blocks/loops.js"></script> 
-  <script src="blockly/blocks/math.js"></script>
-  <script src="blockly/blocks/text.js"></script>
-  <script src="blockly/blocks/lists.js"></script>
-  <script src="blockly/blocks/colour.js"></script>
-  <script src="blockly/blocks/variables.js"></script>
-  <script src="blockly/blocks/procedures.js"></script>
-  <script src="blockly/blocks/robot.js"></script>
-  <script src="blockly/blocks/variables_dynamic.js"></script>
-  <script src="blockly/generators/arduino.js"></script>
-  <script src="blockly/generators/arduino/base.js"></script>
-  <script src="blockly/generators/arduino/control.js"></script>
-  <script src="blockly/generators/arduino/grove.js"></script>
-  <script src="blockly/generators/arduino/logic.js"></script>
-  <script src="blockly/generators/arduino/math.js"></script>
-  <script src="blockly/generators/arduino/procedures.js"></script>
-  <script src="blockly/generators/arduino/text.js"></script>
-  <script src="blockly/generators/arduino/variables.js"></script>
-  <script src="blockly/msg/messages.js"></script>
+    <meta charset="utf-8">
+    <title>antBlock IDE</title>
+    <!--include necessary javascript and css libraries and such
+    //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH-->
+	
+	<!-- for when we're done with adding blocks and stuff 
+	<script src="blockly/blockly_compressed.js"></script>
+	<script src="blockly/javascript_compressed.js"></script>
+	<script src="blockly/blocks_compressed.js"></script>
+	<script src="blockly/arduino_compressed.js"></script> 
+	<script src="blockly/msg/js/en.js"></script>
+	-->
 
-  
-  <!-- our files -->
-  <script src="main.js"></script>
-  <script src="antBot/upload.js"></script>
+	<!-- for while we're developing blockly stuff -->
+	<script src="blockly/blockly_uncompressed.js"></script>
+	<script src="blockly/blocks/logic.js"></script>
+	<script src="blockly/blocks/loops.js"></script> 
+	<script src="blockly/blocks/math.js"></script>
+	<script src="blockly/blocks/text.js"></script>
+	<script src="blockly/blocks/lists.js"></script>
+	<script src="blockly/blocks/colour.js"></script>
+	<script src="blockly/blocks/variables.js"></script>
+	<script src="blockly/blocks/procedures.js"></script>
+	<script src="blockly/blocks/robot.js"></script>
+	<script src="blockly/blocks/variables_dynamic.js"></script>
+	<script src="blockly/generators/arduino.js"></script>
+	<script src="blockly/generators/arduino/base.js"></script>
+	<script src="blockly/generators/arduino/control.js"></script>
+	<script src="blockly/generators/arduino/grove.js"></script>
+	<script src="blockly/generators/arduino/logic.js"></script>
+	<script src="blockly/generators/arduino/math.js"></script>
+	<script src="blockly/generators/arduino/procedures.js"></script>
+	<script src="blockly/generators/arduino/text.js"></script>
+	<script src="blockly/generators/arduino/variables.js"></script>
+	<script src="blockly/generators/arduino/robot.js"></script>
+	<script src="blockly/msg/messages.js"></script>
+	
+    <script src="arduino_manager.js"></script>
+	
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
+    <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
+    <script src="bootstrap-4.3.1-dist\js\bootstrap.min.js"></script>
+    <script src="./renderer.js"></script>
 
-  <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
-  <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
-  <script src="bootstrap-4.3.1-dist\js\bootstrap.min.js"></script>
-  
-  <!--To make the code look pretty -->
-  <link rel="stylesheet" href="highlight\styles\default.css">
-  <script src="highlight\highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 2;
-    }
-    body {
-      background-color: #fff;
-      height: 100%;
-      overflow: hidden;
-    }
-    #blocklyDiv {
-      height: 50%;
-    }
-	#rowOne{
-	   height:90vh;
+    <!--To make the code look pretty -->
+    <link rel="stylesheet" href="highlight\styles\default.css">
+    <script src="highlight\highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 2;
+        }
 
-	}
-	#codeDiv{
-	  border-style: solid;
-	  border-width: 2px;
-	  border-color: #42cbf5;
-	  background-color: #F3EFF3;
-	}
-  </style>
+        body {
+            background-color: #fff;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #blocklyDiv {
+            height: 50%;
+        }
+
+        #rowOne {
+            height: 90vh;
+        }
+
+        #codeDiv {
+            border-style: solid;
+            border-width: 2px;
+            border-color: #42cbf5;
+            background-color: #F3EFF3;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -90,19 +94,20 @@
     <ul class="navbar-nav">
       <li class="nav-item active">
 	  <!--CHANGE THE ONCLICK FUNCTION TO THE FUNCTION IN THE NEW JS FILE.-->
-        <button type="button" class="btn btn-outline-light" data-toggle="tooltip" data-placement="bottom" title="Verify" onclick="myUpdateFunction()">
+        <button type="button" class="btn btn-outline-light" data-toggle="tooltip" data-placement="bottom" title="Verify" onclick="generateCode()">
 			<i class="fas fa-check-circle"></i>
 		</button>
       </li>
       <li class="nav-item active">
-        <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="uploadToArduino()">
-			<i class="fas fa-arrow-circle-down"></i>
-		</button>
+
+          <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="uploadToArduino()">
+              <i class="fas fa-arrow-circle-down"></i>
+          </button>
       </li>
-	  <li class="nav-item active">
-        <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="jSON test" id="testButton" onclick="help()">
-            <i class="fas fa-ad"></i>
-        </button>
+      <li class="nav-item active">
+          <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="jSON test" id="testButton" onclick="help()">
+              <i class="fas fa-ad"></i>
+          </button>
 
       </li>
 
@@ -110,21 +115,26 @@
   </div>
 </nav>
 
+
 <script>
-function myUpdateFunction(event) {
-  var code = Blockly.Arduino.workspaceToCode(workspace);
-  alert(code);
-  document.getElementById("code").innerHTML = code;
-  
+
+//THIS FUNCTION UPDATES THE CONVERTED CODE. MAKE THIS FUNCTION WORK WITH THE CHANGE LISTENER FOR INSTANT CHANGE OF CODE
+function generateCode() {
+	var code = Blockly.Arduino.workspaceToCode(workspace);
+
+	alert(code);
+	document.getElementById("code").innerHTML = code;
 }
-workspace.addChangeListener(myUpdateFunction);
+  
+
+//workspace.addChangeListener(generateCode);
 
 
 function uploadToArduino(event) {
 	var code = Blockly.Arduino.workspaceToCode(workspace);
 	alert(code);
-	upload(code);
-	alert("Upload complete");
+	upload();
+	//alert("Upload complete");
 }
 </script>
 
@@ -134,68 +144,143 @@ function uploadToArduino(event) {
 	<div id="blocklyDiv" style="height: 95%; width: 100%"></div>
 </div>
 
+
 <script>
+//WE CHANGE THE HSV SO IT DOESN'T LOOK LIKE DEFAULT BLOCKLY
 Blockly.HSV_SATURATION = .55// 0 (inclusive) to 1 (exclusive), defaulting to 0.45
 Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
 </script>
 <!-- include all the blocks in the toolbox-->
 <xml id="toolbox" style="display: none">
+	
+	
+
+	<category name="Events" colour=0>
+		<block type="robot_start"></block>
+	</category>
+	
+	
+	<category name="Motion" colour=250>
+	  <block type="robot_forwardTimed">
+	    <field name="OPT">Move forward</field>
+		<field name="SPEED">50</field>
+		<field name="TIME">1</field>
+	  </block>
+	  <block type="robot_forward">
+	    <field name="OPT">Move forward</field>
+	    <field name="SPEED">50</field>
+	  </block>
+	  <block type="robot_turnLeftDegrees">
+	    <field name="DEG">15</field>
+	  </block>
+	  <block type="robot_turnRightDegrees">
+	    <field name="DEG">15</field>
+	  </block>
+	  <block type="robot_wheelSpeeds">
+	    <field name="SPEEDL">50</field>
+		<field name="SPEEDR">50</field>
+	  </block>
+	  <block type="robot_stopMotion"></block>
+	</category>
+	
+	<category name="Sensors" colour=125>
+	  <block type="robot_getDistance">
+	    <field name="UNIT">cm</field>
+	  </block>
+	  <sep gap="50"></sep>
+	  <block type="robot_getLineFollower">
+	    <field name="SIDE">right</field>
+	  </block>
+	  <block type="robot_line">
+	    <field name="POS">on</field>
+	  </block>
+	  <sep gap="50"></sep>
+	  <block type="robot_getAngle"></block>
+	  <block type="robot_resetGyro"></block>
+	</category>
+	
+	<category name="Display" colour=275>
+	  <block type="robot_displayImage"></block>
+	</category>
+	
+	<category name="Sounds" colour=315>
+	  <block type="robot_playNote"></block>
+	</category>
+	
+	<category name="Timing" colour=50>
+	  <block type="robot_delay">
+		<field name="TIME">1</field>
+	  </block>
+	  <block type="robot_waitUntil"></block>
+	  <block type="robot_getTime"></block>
+	  <block type="robot_resetTimer"></block>
+	</category>
+	
+	<category name="Loops" colour=30>
+	  <block type="controls_repeat">
+		<field name="TIMES">5</field>
+	  </block>
+	  <block type="controls_whileUntil"></block>"
+	  <block type="controls_for">
+	    <field name="VAR">i</field>
+		<value name="FROM">
+		  <block type="math_number">
+		    <field name="NUM">1</field>
+		  </block>
+		</value>
+		<value name="TO">
+		  <block type="math_number">
+		    <field name="NUM">10</field>
+		  </block>
+		</value>
+		<value name="BY">
+		  <block type="math_number">
+			<field name="NUM">1</field>
+		  </block>
+		</value>
+	  </block>
+	  <block type="controls_flow_statements"></block>
+	</category>
+
+	<category name="If Statements" colour="%{BKY_LOGIC_HUE}">
+      <block type="controls_if"></block>
+      <block type="controls_if">
+        <mutation else="1"></mutation>
+      </block>
+      <block type="controls_if">
+        <mutation elseif="1" else="1"></mutation>
+      </block>
+    </category>
+
+	<category name="Logic" colour="%{BKY_LOGIC_HUE}">
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+    </category>
+
+	<category name="Math" colour=0>
+	  <block type="math_number"></block>
+	  <block type="math_arithmetic">
+	    <field name="A">0</field>
+		<field name="OP">+</field>
+		<field name="B">0</field>
+	  </block>
+	</category>
+	
+	
+	<!--
     <category name="Robot" colour=0>
         <block type="robot_start"></block>
         <block type="robot_end"></block>
-		<block type="robot_delay"></block>
+		<block type="robot_delay">
+		  <field name="TIME">1</field>
+		</block>
+    </category>
+	-->
+	
 
-    </category>
-  <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <category name="If">
-        <block type="controls_if"></block>
-        <block type="controls_if">
-          <mutation else="1"></mutation>
-        </block>
-        <block type="controls_if">
-          <mutation elseif="1" else="1"></mutation>
-        </block>
-      </category>
-      <category name="Boolean" colour="%{BKY_LOGIC_HUE}">
-        <block type="logic_compare"></block>
-        <block type="logic_operation"></block>
-        <block type="logic_negate"></block>
-        <block type="logic_boolean"></block>
-        <block type="logic_null"></block>
-        <block type="logic_ternary"></block>
-      </category>
-    </category>
-    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <block type="math_number">
-            <field name="NUM">10</field>
-          </block>
-        </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for">
-        <field name="VAR">i</field>
-        <value name="FROM">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-        <value name="TO">
-          <block type="math_number">
-            <field name="NUM">10</field>
-          </block>
-        </value>
-        <value name="BY">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-      </block>
-      <block type="controls_forEach"></block>
-      <block type="controls_flow_statements"></block>
-    </category>
 
 
 </xml>
@@ -229,6 +314,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
         console.log(student.port);  
 
     </script>
+<!--
 <script>
 
     //THIS FUNCTION RUNS COMTEST, WHICH FINDS ALL DEVICES PLUGGED INTO THE COMPUTER AND GIVES THEIR COM PORT
@@ -268,5 +354,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
   
 </script>
+-->
+
 </body>
 </html>
