@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
     <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
     <script src="bootstrap-4.3.1-dist\js\bootstrap.min.js"></script>
+    <script >
     <script src="./renderer.js"></script>
 
     <!--To make the code look pretty -->
@@ -62,27 +63,37 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse text-white mt-1" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-	  <!--CHANGE THE ONCLICK FUNCTION TO THE FUNCTION IN THE NEW JS FILE.-->
-        <button type="button" class="btn btn-outline-light" data-toggle="tooltip" data-placement="bottom" title="Verify" onclick="myUpdateFunction()">
-			<i class="fas fa-check-circle"></i>
-		</button>
-      </li>
-      <li class="nav-item active">
+      <ul class="navbar-nav">
+          <li class="nav-item active">
+              <!--CHANGE THE ONCLICK FUNCTION TO THE FUNCTION IN THE NEW JS FILE.-->
+              <button type="button" class="btn btn-outline-light" data-toggle="tooltip" data-placement="bottom" title="Verify" onclick="myUpdateFunction()">
+                  <i class="fas fa-check-circle"></i>
+              </button>
+          </li>
+          <li class="nav-item active">
 
-          <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload()">
-              <i class="fas fa-arrow-circle-down"></i>
-          </button>
-      </li>
-      <li class="nav-item active">
-          <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="jSON test" id="testButton" onclick="help()">
-              <i class="fas fa-ad"></i>
-          </button>
+              <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload()">
+                  <i class="fas fa-arrow-circle-down"></i>
+              </button>
+          </li>
+          <li class="nav-item active">
+              <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="jSON test" id="testButton" onclick="help()">
+                  <i class="fas fa-ad"></i>
+              </button>
 
-      </li>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown link
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+          </li>
 
-    </ul>
+      </ul>
   </div>
 </nav>
 
@@ -233,7 +244,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
     // so, first name = Mike and last name = Will 
 
     //CALL PYTHON FILE, PYTHON WRITES TO JSON
-    var process = spawn('python',["./comTest.py"] ); 
+    var process = spawn('python',["./arduino-manager/comTest.py"] ); 
   
     // Takes stdout data from script which executed 
     // with arguments and send this data to res object 
@@ -242,7 +253,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
     //READ JSON AND DISPLAY
     const fs = require('fs');
-        let rawdata = fs.readFileSync('arduino-manager/arduinoSettings.json');
+        let rawdata = fs.readFileSync('./arduino-manager/arduinoSettings.json');
         let student = JSON.parse(rawdata);
         //console.log(student.port);  
         document.getElementById("code").innerHTML = student.port;
