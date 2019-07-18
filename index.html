@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
     <link href="images\fontawesome-free-5.9.0-web\css\all.css" rel="stylesheet">
     <script src="bootstrap-4.3.1-dist\js\bootstrap.min.js"></script>
-    <script src="node_modules\popper.js\dist\popper.min.js"></script>
-    <script src="node_modules\jquery\dist\jquery.min.js"></script>
+    <script src="jquery-3.4.1.min.js"></script>
     <script src="./renderer.js"></script>
+    <script src="node_modules\file-saver\dist\FileSaver.min.js">
 
     <!--To make the code look pretty -->
-    <link rel="stylesheet" href="highlight\styles\default.css">
+    <link rel="stylesheet" href="highlight\styles\arduino-light.css">
     <script src="highlight\highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <style>
@@ -43,12 +43,16 @@
             height: 90vh;
         }
 
-        #codeDiv {
+        .card-header{
+            background-color:#00630a;
+        }
+
+        /*#codeDiv {
             border-style: solid;
             border-width: 2px;
             border-color: #42cbf5;
             background-color: #F3EFF3;
-        }
+        }*/
     </style>
 
 </head>
@@ -64,61 +68,109 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse text-white mt-1" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <!--CHANGE THE ONCLICK FUNCTION TO THE FUNCTION IN THE NEW JS FILE.-->
-                    <button type="button" class="btn btn-outline-light" data-toggle="tooltip" data-placement="bottom" title="Verify" onclick="myUpdateFunction()">
-                        <i class="fas fa-check-circle"></i>
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Restore Default" onclick="changeSpinner(true)" onmouseover="textChange(1)" onmouseout="textReverse()">
+                        <i class="fas fa-redo"></i>
                     </button>
                 </li>
                 <li class="nav-item active">
-
-                    <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload()">
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload()" onmouseover="textChange(2)" onmouseout="textReverse()">
                         <i class="fas fa-arrow-circle-down"></i>
                     </button>
                 </li>
                 <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-light mx-2" data-toggle="tooltip" data-placement="bottom" title="jSON test" id="testButton" onclick="help()">
-                        <i class="fas fa-ad"></i>
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Check Devices" id="check" onclick="checkDevices()" onmouseover="textChange(3)" onmouseout="textReverse()">
+                        <i class="fab fa-usb"></i>
                     </button>
-
                 </li>
                 <li class="nav-item active">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Save" id="save" onclick="saveFile()" onmouseover="textChange(4)" onmouseout="textReverse()">
+                        <i class="fas fa-file-download"></i>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                </li>
+                <li class="nav-item active">
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Load" id="load" onclick="loadFile()" onmouseover="textChange(5)" onmouseout="textReverse()">
+                        <i class="fas fa-file-upload"></i>
+                    </button>
                 </li>
 
+                <li class="nav-item disabled">
+                    <button type="button" class="btn btn-outline-light mx-1 d-flex" data-toggle="tooltip" data-placement="bottom" title="Current Port">
+                        <div id="port">
+                            <i class="fas fa-file-export mr-1"></i>No Port Detected:
+                        </div>
+                    </button>
+                </li>
+                <li class="nav-item disabled">
+                    <div>
+                        <div class="mt-2 mx-4" id="textChanged"></div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav" id="uploadMessage">
+
+                <!--<li class="nav-item">
+                    <div class="spinner-border text-light mr-auto" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </li>
+                <h6 class="mt-1 mx-2">Uploading...</h6>-->
             </ul>
         </div>
     </nav>
-
+    <input type="file" id="loadFile" accept=".txt" hidden>
 
     <script>
+    
 
-//THIS FUNCTION UPDATES THE CONVERTED CODE. MAKE THIS FUNCTION WORK WITH THE CHANGE LISTENER FOR INSTANT CHANGE OF CODE
-function myUpdateFunction() {
-          var code = Blockly.JavaScript.workspaceToCode(workspace);
 
-          alert(code);
+        //THIS FUNCTION UPDATES THE CONVERTED CODE. MAKE THIS FUNCTION WORK WITH THE CHANGE LISTENER FOR INSTANT CHANGE OF CODE
+        function myUpdateFunction() {
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+
+            alert(code);
             document.getElementById("code").innerHTML = code;
-}
-
-}
-workspace.addChangeListener(myUpdateFunction);
+        }
 
 
-function uploadToArduino(event) {
+        workspace.addChangeListener(myUpdateFunction);
+
+
+        function uploadToArduino(event) {
             var code = Blockly.Arduino.workspaceToCode(workspace);
             alert(code);
             upload(code);
             alert("Upload complete");
-}
+        }
+
+        function textChange(button) {
+            switch (button) {
+                case 1:
+                    document.getElementById("textChanged").innerHTML = "Restore to Default";
+                    break;
+                case 2:
+                    document.getElementById("textChanged").innerHTML = "Upload to antBot";
+                    break;
+                case 3:
+                    document.getElementById("textChanged").innerHTML = "Refresh COM Ports";
+                    break;
+                case 4:
+                    document.getElementById("textChanged").innerHTML = "Save";
+                    break;
+                case 5:
+                    document.getElementById("textChanged").innerHTML = "Load";
+                    break;
+                default:
+                    document.getElementById("textChanged").innerHTML = "";
+            }
+        }
+
+        function textReverse() {
+            document.getElementById("textChanged").innerHTML = "";
+        }
+
     </script>
 
 
@@ -129,9 +181,9 @@ function uploadToArduino(event) {
 
 
         <script>
-//WE CHANGE THE HSV SO IT DOESN'T LOOK LIKE DEFAULT BLOCKLY
-Blockly.HSV_SATURATION = .55// 0 (inclusive) to 1 (exclusive), defaulting to 0.45
-Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
+            //WE CHANGE THE HSV SO IT DOESN'T LOOK LIKE DEFAULT BLOCKLY
+            Blockly.HSV_SATURATION = .55// 0 (inclusive) to 1 (exclusive), defaulting to 0.45
+            Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
         </script>
         <!-- include all the blocks in the toolbox-->
@@ -194,75 +246,35 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
         </xml>
 
-        <div class="col-4" id="codeDiv">
-
-            <pre><code class="javascript" id="code"></code></pre>
-
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary" onclick="displayCode()">Code</button>
-                <button type="button" class="btn btn-secondary" onclick="displayMessages()">Messages</button>
+        <div class=" col-4">
+            <div class="card mb-4" style="height:45%">
+                <div class="card-header text-white">
+                    Code
+                </div>
+                <div class="card-body overflow-auto">
+                    <pre><code class="c++" id="code">#include antBot</code></pre>
+                </div>
             </div>
 
-        </div>
+            <div class="card mt-4" style="height:45%">
+                <div class="card-header text-white">
+                    Messages
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     <script>
-            //INJECT BLOCKLY INTO DIV
-          var workspace = Blockly.inject('blocklyDiv',
-              {toolbox: document.getElementById('toolbox')});
+        //INJECT BLOCKLY INTO DIV
+        var workspace = Blockly.inject('blocklyDiv',
+            { toolbox: document.getElementById('toolbox') });
     </script>
-
-    <script>
-                //TESTING FOR NODEJS IN APP
-                //THIS READS JSON FILE AND OUTPUTS IN CONSOLE (CTRL+SHIFT+I TO VIEW)
-                const fs = require('fs');
-                let rawdata = fs.readFileSync('arduino-manager/arduinoSettings.json');
-                let student = JSON.parse(rawdata);
-                console.log(student.port);
-
-    </script>
-    <script>
-
-            //THIS FUNCTION RUNS COMTEST, WHICH FINDS ALL DEVICES PLUGGED INTO THE COMPUTER AND GIVES THEIR COM PORT
-            //SHOULD FIND ALL PORTS, PUT INTO JSON, READ JSON, INJECT INTO DIV
-
-
-            function help() {
-
-            // Use child_process.spawn method from
-            // child_process module and assign it
-            // to variable spawn
-            var spawn = require("child_process").spawn;
-
-            // Parameters passed in spawn -
-            // 1. type_of_script
-            // 2. list containing Path of the script
-            //    and arguments for the script
-
-            // E.g : http://localhost:3000/name?firstname=Mike&lastname=Will
-            // so, first name = Mike and last name = Will
-
-            //CALL PYTHON FILE, PYTHON WRITES TO JSON
-            var process = spawn('python',["./arduino-manager/comTest.py"] );
-
-            // Takes stdout data from script which executed
-            // with arguments and send this data to res object
-            //process.stdout.on('data', function(data) {
-           //     res.send(data.toString());
-
-            //READ JSON AND DISPLAY
-            const fs = require('fs');
-                let rawdata = fs.readFileSync('./arduino-manager/arduinoSettings.json');
-                let student = JSON.parse(rawdata);
-                //console.log(student.port);
-                document.getElementById("code").innerHTML = student.port;
-            }
-
-
-    </script>
-
 
 </body>
 </html>
