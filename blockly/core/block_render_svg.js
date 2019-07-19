@@ -183,9 +183,12 @@ Blockly.BlockSvg.JAGGED_TEETH_WIDTH = 15;
  * SVG path for drawing a horizontal puzzle tab from top to bottom.
  * @const
  */
-Blockly.BlockSvg.TAB_PATH_DOWN = 'v 5 c 0,10 -' + Blockly.BlockSvg.TAB_WIDTH +
+Blockly.BlockSvg.TAB_PATH_DOWN_LOGIC = 'v 5 c 0,10 -' + Blockly.BlockSvg.TAB_WIDTH +
     ',-8 -' + Blockly.BlockSvg.TAB_WIDTH + ',7.5 s ' +
     Blockly.BlockSvg.TAB_WIDTH + ',-2.5 ' + Blockly.BlockSvg.TAB_WIDTH + ',7.5';
+	
+Blockly.BlockSvg.TAB_PATH_DOWN = 'v 5 l -8 ,7.5 l 8,7.5';
+
 /**
  * SVG path for drawing a horizontal puzzle tab from top to bottom with
  * highlighting from the upper-right.
@@ -829,9 +832,10 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(pathObject) {
     // Create output connection.
     this.outputConnection.setOffsetInBlock(0, 0);
     steps.push('V', Blockly.BlockSvg.TAB_HEIGHT);
-    steps.push('c 0,-10 -' + Blockly.BlockSvg.TAB_WIDTH + ',8 -' +
-        Blockly.BlockSvg.TAB_WIDTH + ',-7.5 s ' + Blockly.BlockSvg.TAB_WIDTH +
-        ',2.5 ' + Blockly.BlockSvg.TAB_WIDTH + ',-7.5');
+//    steps.push('c 0,-10 -' + Blockly.BlockSvg.TAB_WIDTH + ',8 -' +
+//       Blockly.BlockSvg.TAB_WIDTH + ',-7.5 s ' + Blockly.BlockSvg.TAB_WIDTH +
+//        ',2.5 ' + Blockly.BlockSvg.TAB_WIDTH + ',-7.5');
+    steps.push('l -8 ,-7.5 l 8,-7.5');
     if (this.RTL) {
       highlightSteps.push('M', (Blockly.BlockSvg.TAB_WIDTH * -0.25) + ',8.4');
       highlightSteps.push('l', (Blockly.BlockSvg.TAB_WIDTH * -0.45) + ',-2.1');
@@ -920,7 +924,7 @@ Blockly.BlockSvg.prototype.renderInlineRow_ = function(pathObject, row, cursor,
                        ',' + (cursor.y + Blockly.BlockSvg.INLINE_PADDING_Y));
       inlineSteps.push('h', Blockly.BlockSvg.TAB_WIDTH - 2 -
                        input.renderWidth);
-      inlineSteps.push(Blockly.BlockSvg.TAB_PATH_DOWN);
+	  inlineSteps.push(Blockly.BlockSvg.TAB_PATH_DOWN);	  
       inlineSteps.push('v', input.renderHeight + 1 -
                             Blockly.BlockSvg.TAB_HEIGHT);
       inlineSteps.push('h', input.renderWidth + 2 -
