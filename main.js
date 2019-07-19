@@ -15,7 +15,7 @@ const { shell } = require('electron');
 
 //UNCOMMENT THE SHELL OPEN ITME LINE TO RUN THE BATCH FILE TO CREATE LOCAL SERVER FOR ARDUINO
 
-//shell.openItem(app.getAppPath() + '\\arduino-manager\\load_server.bat');
+shell.openItem(app.getAppPath() + '\\arduino-manager\\load_server.bat');
 
 //your code
 // Keep a global reference of the window object, if you don't, the window will

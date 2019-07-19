@@ -8,7 +8,7 @@ function upload() {
     //const output = execSync('ls', { encoding: 'utf-8' });
     //console.log('Output was:\n', output);
     alert("Ready to upload to Arduino.");
-
+    changeSpinner(true);
 
 
     var request = new XMLHttpRequest();
@@ -17,14 +17,33 @@ function upload() {
     var async = true;
 
     request.onreadystatechange = function () {
-
+        
         var status = parseInt(request.status); // HTTP response status, e.g., 200 for "200 OK"
-        //alert(status);
-        if (status == 200) {
-            alert("Program Uploaded");
-        }
+        var errorInfo = null;
+        switch (status) {
+            case 200:
+                break;
+            case 0:
+                errorInfo = "code 0\n\nCould not connect to server at " + url + ".  Is the local web server running?";
+                break;
+            case 400:
+                errorInfo = "code 400\n\nBuild failed - probably due to invalid source code.  Make sure that there are no missing connections in the blocks.";
+                break;
+            case 500:
+                errorInfo = "code 500\n\nUpload failed.  Is the Arduino connected to USB port?";
+                break;
+            case 501:
+                errorInfo = "code 501\n\nUpload failed.  Is 'ino' installed and in your path?  This only works on Mac OS X and Linux at this time.";
+                break;
+            default:
+                errorInfo = "code " + status + "\n\nUnknown error.";
+                break;
+        };
 
-    }
+        alertStatus(status, errorInfo);
+    };
+
+
 
 
 
@@ -35,6 +54,17 @@ function upload() {
     //MAKE THIS EQUAL TO THE PASSED IN PARAMETER
     var code = "void setup() {pinMode(8,OUTPUT); digitalWrite(8,LOW);} void loop() {} ";
     request.send(code);
+}
+
+
+function alertStatus(status, errorInfo) {
+    if (status == 200) {
+        alert("Program Uploaded");
+        changeSpinner(false);
+    } else if (status!= 0) {
+        alert("Error uploading program: " + errorInfo);
+        changeSpinner(false);
+    }
 }
 
 function changeSpinner(status) {
