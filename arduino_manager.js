@@ -52,8 +52,9 @@ function upload() {
     request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
     //currently, this includes a default blink wired to pin 8. replace this with code generated from blockly generator. 
     //MAKE THIS EQUAL TO THE PASSED IN PARAMETER
-    var code = "void setup() {pinMode(8,OUTPUT); digitalWrite(8,LOW);} void loop() {} ";
+    var code = "void setup() {pinMode(8,OUTPUT); digitalWrite(8,HIGH);} void loop() {} ";
     request.send(code);
+	alert("done");
 }
 
 
