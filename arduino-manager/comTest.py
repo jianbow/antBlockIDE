@@ -2,7 +2,7 @@ import sys
 import glob
 import serial
 import json
-
+#pip install pyserial
 def serial_ports():
     """ Lists serial port names
 
@@ -32,7 +32,7 @@ def serial_ports():
 			#PUT JSON INTO Y
             y = json.dumps(x)
 			#PUT JSON INTO THE TARGET FILE
-            with open('arduinoSettings.json', 'w') as outfile:  
+            with open('./arduino-manager/arduinoSettings.json', 'w') as outfile:  
                 json.dump(x, outfile)
         except (OSError, serial.SerialException):
             pass
