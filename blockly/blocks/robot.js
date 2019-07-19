@@ -21,32 +21,90 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // ANTBOT CODE HAT
   {
     "type": "robot_start",
-    "message0": "When AntBot Starts %1",
-    "args0": [
-        {
-			"type": "input_dummy"
-        }
-    ],
+    "message0": "when antBot starts at %1",
+	"args0": [
+		{
+			"type": "input_value",
+			"name": "COM"
+		}
+	],
     "colour": eventsHue,
     "nextStatement": "Action"
   },
+ 
+  //COM PORT INPUT
+  {
+	"type": "robot_comPort",
+	"message0": "%1",
+	"args0": [
+		{
+			"type": "field_dropdown",
+			"name": "COM",
+			"options": [["COM3", "COM3"],
+						["COM4", "COM4"]]
+		}
+	],
+	"colour": eventsHue,
+	"output": "String"
+  },
   
+  //ADD SENSORS
+  {
+	"type": "robot_addSensor",
+	"message0": "add %1 sensor at %2",
+	"args0": [
+		{
+			"type": "field_dropdown",
+			"name": "SENSOR",
+			"options": [["ultrasonic", "ULTRA"],
+						["line follower", "LINE"]]
+		},
+		{
+			"type": "field_dropdown",
+			"name": "PORT",
+			"options": [["C", "C"],
+						["D", "D"]]			
+		}
+	],
+	"colour": eventsHue,
+	"previousStatement": "Action",
+	"nextStatement": "Action"
+  },
+
+  //SENSOR PORT INPUT
+  {
+	"type": "robot_sensorPort",
+	"message0": "port %1",
+	"args0": [
+		{
+			"type": "field_dropdown",
+			"name": "PORT",
+			"options": [["A", "A"],
+						["B", "B"],
+						["C", "C"],
+						["D", "D"]]
+		}
+	],
+	"colour": eventsHue,
+	"output": "String"
+  },
+
 //----------------- MOTION ---------------------
 
   // MOVE FOR A CERTAIN NUMBER OF SECONDS
   // DECIDE IF DROPDOWN OR SEPARATE BLOCKS FOR FORWARD/BACKWAR/LEFT/RIGHT
   // THEN ADD DROPDOWN MENU OR ADDITIONAL BLOCKS
   {
-    "type": "robot_forwardTimed",
+    "type": "robot_moveTimed",
     "message0": "%1 at %2% for %3 sec",
     "args0": [
 		{
 			"type": "field_dropdown",
-			"name": "OPT",
-			"options": [["Move forward", "FORWARD"],
-						["Move backward", "BACKWARD"],
-						["Turn right", "RIGHT"],
-						["Turn left", "LEFT"]]
+			"name": "DIR",
+			"options": [["move forward", "FORWARD"],
+						["move backward", "BACKWARD"],
+						["turn right", "RIGHT"],
+						["turn left", "LEFT"]]
 		},
         {
 			"type": "field_number",
@@ -65,16 +123,16 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //MOVE FORWARD/BACKWAR/LEFT/RIGHT
   //IMPLEMENT DROPDOWN MENU OR ADDITIONAL BLOCKS
   {
-    "type": "robot_forward",
+    "type": "robot_move",
     "message0": "%1 at %2% speed",
     "args0": [
 		{
 			"type": "field_dropdown",
-			"name": "OPT",
-			"options": [["Move forward", "FORWARD"],
-						["Move backward", "BACKWARD"],
-						["Turn right", "RIGHT"],
-						["Turn left", "LEFT"]]
+			"name": "DIR",
+			"options": [["move forward", "FORWARD"],
+						["move backward", "BACKWARD"],
+						["turn right", "RIGHT"],
+						["turn left", "LEFT"]]
 		},
         {
 			"type": "field_number",
@@ -91,7 +149,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //USE GYRO TO TURN LEFT TO A CERTAIN NUMBER OF DEGREES
   {
 	"type": "robot_turnLeftDegrees",
-	"message0": "Turn left %1 degrees",
+	"message0": "turn left %1 degrees",
 	"args0": [
 		{
 			"type": "field_number",
@@ -106,7 +164,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //USE GYRO TO TURN RIGHT TO A CERTAIN NUMBER OF DEGREES
   {
 	"type": "robot_turnRightDegrees",
-	"message0": "Turn right %1 degrees",
+	"message0": "turn right %1 degrees",
 	"args0": [
 		{
 			"type": "field_number",
@@ -121,7 +179,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //SET EACH WHEEL SPPED INDIVIDUALLY
   {
 	"type": "robot_wheelSpeeds",
-	"message0": "Set left wheel to %1% and right wheel to %2%",
+	"message0": "set left wheel to %1% and right wheel to %2%",
 	"args0": [
 		{
 			"type": "field_number",
@@ -140,7 +198,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //SET BOTH WHEELS TO ZERO
   {
 	"type": "robot_stopMotion",
-	"message0": "Stop all motion",
+	"message0": "stop all motion",
 	"colour": motionHue,
 	"previousStatement": "Action",
 	"nextStatement": "Action"
@@ -205,7 +263,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //RESET GYRO
   {
 	"type": "robot_resetGyro",
-	"message0": "Reset gyro sensor",
+	"message0": "reset gyro sensor",
 	"colour": sensorHue,
 	"previousStatement": "Action",
 	"nextStatement": "Action"
@@ -216,7 +274,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // DELAY CERTAIN NUMBER OF SECONDS
   {
     "type": "robot_displayImage",
-    "message0": "Display Image",
+    "message0": "display Image",
     "colour": displayHue,
     "previousStatement": "Action",
     "nextStatement": "Action"
@@ -227,7 +285,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // DELAY CERTAIN NUMBER OF SECONDS
   {
     "type": "robot_playNote",
-    "message0": "Play Note",
+    "message0": "play note",
     "colour": soundHue,
     "previousStatement": "Action",
     "nextStatement": "Action"
@@ -238,7 +296,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // DELAY CERTAIN NUMBER OF SECONDS
   {
     "type": "robot_delay",
-    "message0": "Wait %1 sec",
+    "message0": "wait %1 sec",
     "args0": [
         {
 			"type": "field_number",
@@ -253,7 +311,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // WAIT UNTIL BOOLEAN
   {
     "type": "robot_waitUntil",
-    "message0": "Wait until %1",
+    "message0": "wait until %1",
     "args0": [
         {
 			"type": "input_value",
@@ -277,7 +335,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // RESET TIMER
   {
     "type": "robot_resetTimer",
-    "message0": "Reset timer",
+    "message0": "reset timer",
     "colour": timingHue,
     "previousStatement": "Action",
     "nextStatement": "Action"

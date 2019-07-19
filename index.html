@@ -157,8 +157,6 @@
 //THIS FUNCTION UPDATES THE CONVERTED CODE. MAKE THIS FUNCTION WORK WITH THE CHANGE LISTENER FOR INSTANT CHANGE OF CODE
 function generateCode() {
 	var code = Blockly.Arduino.workspaceToCode(workspace);
-
-	alert(code);
 	document.getElementById("code").innerHTML = code;
 }
 
@@ -243,12 +241,12 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	
 	
 	<category name="Motion" colour=250>
-	  <block type="robot_forwardTimed">
+	  <block type="robot_moveTimed">
 	    <field name="OPT">Move forward</field>
 		<field name="SPEED">50</field>
 		<field name="TIME">1</field>
 	  </block>
-	  <block type="robot_forward">
+	  <block type="robot_move">
 	    <field name="OPT">Move forward</field>
 	    <field name="SPEED">50</field>
 	  </block>
@@ -377,7 +375,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
                 </div>
                 <div class="card-body overflow-auto">
-                    <pre><code class="c++" id="code">#include antBot</code></pre>
+                    <pre><code class="c++" id="code"></code></pre>
                 </div>
             </div>
 
@@ -396,9 +394,10 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
     <script>
 
-                //INJECT BLOCKLY INTO DIV
-                var workspace = Blockly.inject('blocklyDiv',
-            {toolbox: document.getElementById('toolbox') });
+      //INJECT BLOCKLY INTO DIV
+      var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
+	  workspace.addChangeListener(generateCode);
+			
     </script>
 
 
