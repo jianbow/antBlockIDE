@@ -1,0 +1,70 @@
+﻿#\3A 1\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f101";
+    margin-right:10px;
+    color: red;
+}
+
+#\3A 2\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f013";
+    margin-right: 10px;
+}
+
+#\3A 3\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f519";
+    margin-right: 10px;
+}
+
+#\3A 4\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f26c";
+    margin-right: 10px;
+}
+
+#\3A 5\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f028";
+    margin-right: 10px;
+}
+
+#\3A 6\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f2f2";
+    margin-right: 10px;
+}
+
+#\3A 7\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f021";
+    margin-right: 10px;
+}
+
+#\3A 8\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f128";
+    margin-right: 10px;
+}
+
+#\3A 9\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f074";
+    margin-right: 10px;
+}
+
+#\3A a\.label::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f1ec";
+    margin-right: 10px;
+}

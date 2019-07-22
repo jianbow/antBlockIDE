@@ -54,7 +54,7 @@ function upload() {
     //MAKE THIS EQUAL TO THE PASSED IN PARAMETER
     var code = "void setup() {pinMode(8,OUTPUT); digitalWrite(8,HIGH);} void loop() {} ";
     request.send(code);
-	alert("done");
+	//alert("done");
 }
 
 
