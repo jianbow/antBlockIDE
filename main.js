@@ -15,7 +15,7 @@ const { shell } = require('electron');
 
 //UNCOMMENT THE SHELL OPEN ITME LINE TO RUN THE BATCH FILE TO CREATE LOCAL SERVER FOR ARDUINO
 
-//shell.openItem(app.getAppPath() + '\\arduino-manager\\load_server.bat');
+shell.openItem(app.getAppPath() + '\\arduino-manager\\load_server.bat');
 
 //your code
 // Keep a global reference of the window object, if you don't, the window will
@@ -52,7 +52,7 @@ function createWindow () {
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         //THIS ONE LINE OF CODE TOOK ME 3 DAYS. ELECTRON DOCS LIE AND SAY NODE API USABLE. CHANGED SINCE VERSION 5, MUST SET TRUE
-        //nodeIntegration: true
+        nodeIntegration: true
       }
 
   })
