@@ -281,6 +281,10 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	
 	<category name="Display" colour=275>
 	  <block type="robot_displayImage"></block>
+	  <block type="robot_displayText"></block>
+	  <block type="robot_text">
+	    <field name="TEXT">...</field>
+	  </block>
 	</category>
 	
 	<category name="Sounds" colour=315>
@@ -321,7 +325,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	  </block>
 	  <block type="controls_flow_statements"></block>
 	</category>
-
+<!--
 	<category name="If Statements" colour="%{BKY_LOGIC_HUE}">
       <block type="controls_if"></block>
       <block type="controls_if">
@@ -330,9 +334,10 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
       <block type="controls_if">
         <mutation elseif="1" else="1"></mutation>
       </block>
-    </category>
+    </category>-->
 
 	<category name="Logic" colour="%{BKY_LOGIC_HUE}">
+      <block type="controls_if"></block>
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
       <block type="logic_negate"></block>
