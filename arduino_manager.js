@@ -4,10 +4,12 @@
 
 
 //MAKE GENERATED CODE A PARAMETER
-function upload() {
+function upload(inputCode) {
     //const output = execSync('ls', { encoding: 'utf-8' });
     //console.log('Output was:\n', output);
     alert("Ready to upload to Arduino.");
+    document.getElementById("message").innerHTML = "Uploading...";
+
     changeSpinner(true);
 
 
@@ -53,17 +55,19 @@ function upload() {
     //currently, this includes a default blink wired to pin 8. replace this with code generated from blockly generator. 
     //MAKE THIS EQUAL TO THE PASSED IN PARAMETER
     var code = "void setup() {pinMode(8,OUTPUT); digitalWrite(8,HIGH);} void loop() {} ";
-    request.send(code);
-	alert("done");
+    request.send(inputCode);
+	//alert("done");
 }
 
 
 function alertStatus(status, errorInfo) {
     if (status == 200) {
         alert("Program Uploaded");
+        document.getElementById("message").innerHTML = "Program Uploaded";
         changeSpinner(false);
     } else if (status!= 0) {
         alert("Error uploading program: " + errorInfo);
+        document.getElementById("message").innerHTML = "<div id='errorMessage'>Error uploading program: </div>" + errorInfo;
         changeSpinner(false);
     }
 }
