@@ -83,8 +83,18 @@
                     height: 90vh;
                 }
 
-                .card-header {
+                /*.card-header {
                     background-color:  #00630a;
+                }*/
+
+                .mainBackground {
+                    background-color: #196F3D;
+                   // background-color: #0061FF;
+
+                }
+
+                .secondaryBackground{
+                   background-color: #117864;
                 }
 
                 /* icon-added icon styles */
@@ -102,7 +112,7 @@
                     background: #ffffff;
                     border-right-width: 5px;
                     border-right-style: solid;
-                    border-right-color: #00630a;
+                    border-right-color: #117864;
 
                 }
 
@@ -147,7 +157,7 @@
 
 
     <!--NAVBAR. ADD BUTTONS HERE-->
-    <nav class="navbar navbar-expand-sm" style="background-color: #00630a;">
+    <nav class="navbar navbar-expand-sm mainBackground">
         <div class="navbar-brand text-white" href="#">
             <i class="fas fa-code mr-2"></i>antBlock
         </div>
@@ -290,7 +300,7 @@ function generateCode() {
 
 <div class="row container-fluid my-4" id="rowOne">
 <div class="col-8">
-	<div id="blocklyDiv" style="height: 95%; width: 100%;   border-radius: 5px; border: 5px solid #00630a;"></div>
+	<div id="blocklyDiv" style="height: 95%; width: 100%;   border-radius: 5px; border: 5px solid #117864;"></div>
 </div>
 
 
@@ -437,7 +447,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
         <div class=" col-4">
             <div class="card mb-4" style="height:45%">
-                <div class="card-header text-white form-inline">
+                <div class="card-header text-white form-inline secondaryBackground">
                     <div id="codeTitle">
                         Code
                     </div>
@@ -449,7 +459,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
                 </div>
             </div>
 
-            <div class="card mt-4" style="height:45%">
+            <div class="card mt-4 secondaryBackground" style="height:45%">
                 <div class="card-header text-white">
                     Messages
                 </div>
