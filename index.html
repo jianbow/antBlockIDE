@@ -75,6 +75,10 @@
         .card-header{
             background-color:#00630a;
         }
+		
+		.blocklyToolboxDiv{
+			background: #ffffff;
+		}
 
         /*#codeDiv {
             border-style: solid;
@@ -226,8 +230,8 @@ function generateCode() {
 
 <script>
 //WE CHANGE THE HSV SO IT DOESN'T LOOK LIKE DEFAULT BLOCKLY
-Blockly.HSV_SATURATION = .55// 0 (inclusive) to 1 (exclusive), defaulting to 0.45
-Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
+Blockly.HSV_SATURATION = 0.99// 0 (inclusive) to 1 (exclusive), defaulting to 0.45
+Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
 </script>
 <!-- include all the blocks in the toolbox-->
@@ -235,12 +239,12 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	
 	
 
-	<category name="Events" colour=0>
+	<category name="Events" colour="#FFAB19">
 		<block type="robot_start"></block>
 	</category>
 	
 	
-	<category name="Motion" colour=250>
+	<category name="Motion" colour="#4C97FF">
 	  <block type="robot_moveTimed">
 	    <field name="OPT">Move forward</field>
 		<field name="SPEED">50</field>
@@ -263,7 +267,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	  <block type="robot_stopMotion"></block>
 	</category>
 	
-	<category name="Sensors" colour=125>
+	<category name="Sensors" colour="#61CEF2">
 	  <block type="robot_getDistance">
 	    <field name="UNIT">cm</field>
 	  </block>
@@ -279,7 +283,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	  <block type="robot_resetGyro"></block>
 	</category>
 	
-	<category name="Display" colour=275>
+	<category name="Display" colour="#9966FF">
 	  <block type="robot_displayImage"></block>
 	  <block type="robot_displayText"></block>
 	  <block type="robot_text">
@@ -287,11 +291,11 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	  </block>
 	</category>
 	
-	<category name="Sounds" colour=315>
+	<category name="Sounds" colour="#CF63CF">
 	  <block type="robot_playNote"></block>
 	</category>
 	
-	<category name="Timing" colour=50>
+	<category name="Timing" colour="#FFBF00">
 	  <block type="robot_delay">
 		<field name="TIME">1</field>
 	  </block>
@@ -300,29 +304,11 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	  <block type="robot_resetTimer"></block>
 	</category>
 	
-	<category name="Loops" colour=30>
+	<category name="Loops" colour="#00DEB1">
 	  <block type="controls_repeat">
 		<field name="TIMES">5</field>
 	  </block>
 	  <block type="controls_whileUntil"></block>"
-	  <block type="controls_for">
-	    <field name="VAR">i</field>
-		<value name="FROM">
-		  <block type="math_number">
-		    <field name="NUM">1</field>
-		  </block>
-		</value>
-		<value name="TO">
-		  <block type="math_number">
-		    <field name="NUM">10</field>
-		  </block>
-		</value>
-		<value name="BY">
-		  <block type="math_number">
-			<field name="NUM">1</field>
-		  </block>
-		</value>
-	  </block>
 	  <block type="controls_flow_statements"></block>
 	</category>
 <!--
@@ -344,7 +330,7 @@ Blockly.HSV_VALUE = .95// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
       <block type="logic_boolean"></block>
     </category>
 
-	<category name="Math" colour=0>
+	<category name="Math" colour="#FFDB29">
 	  <block type="math_number"></block>
 	  <block type="math_arithmetic">
 	    <field name="A">0</field>

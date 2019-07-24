@@ -8,12 +8,12 @@ goog.require('Blockly');
 
 //Blockly.Constants.Robot.HUE = 20;
 Blockly.BlockSvg.START_HAT = true;
-const eventsHue = 0;
-const motionHue = 230;
-const sensorHue = 125;
-const timingHue = 50;
-const displayHue = 275;
-const soundHue = 315;
+const eventsHue = "#FFAB19";
+const motionHue = "#4C97FF";
+const sensorHue = "#61CEF2";
+const timingHue = "#FFBF00";
+const displayHue = "#9966FF";
+const soundHue = "#CF63CF";
 
 Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 //----------------- EVENTS --------------------

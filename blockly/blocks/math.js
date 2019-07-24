@@ -41,6 +41,7 @@ goog.require('Blockly');
  * @deprecated Use Blockly.Msg['MATH_HUE']. (2018 April 5)
  */
 Blockly.Constants.Math.HUE = 230;
+var color = "#FFDB29";
 
 Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // Block for numeric value.
@@ -54,8 +55,9 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     }],
     "output": "Number",
     "helpUrl": "%{BKY_MATH_NUMBER_HELPURL}",
-    "style": "math_blocks",
+    //"style": "math_blocks",
     "tooltip": "%{BKY_MATH_NUMBER_TOOLTIP}",
+	"colour": color,
     "extensions": ["parent_tooltip_when_inline"]
   },
 
@@ -88,7 +90,8 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     ],
     "inputsInline": true,
     "output": "Number",
-    "style": "math_blocks",
+    //"style": "math_blocks",
+	"colour": color,
     "helpUrl": "%{BKY_MATH_ARITHMETIC_HELPURL}",
     "extensions": ["math_op_tooltip"]
   },
