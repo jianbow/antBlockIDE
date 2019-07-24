@@ -157,6 +157,19 @@ Blockly.Arduino.robot_displayImage = function() {
 	return code;
 }
 
+Blockly.Arduino.robot_displayText = function() {
+	var text = this.getFieldValue('TEXT');
+	var code = '//display text'
+	return code;
+}
+
+Blockly.Arduino.robot_text = function(){
+	var type = this.outputConnection.getCheck();
+	var text = this.getFieldValue('TEXT');
+	var code = type + '\n' + text;
+	return code;
+}
+
 //-------------------- SOUND ------------------------
 Blockly.Arduino.robot_playNote = function() {
 	var code = '//play note\n';
@@ -171,9 +184,10 @@ Blockly.Arduino.robot_delay = function() {
 }
 
 Blockly.Arduino.robot_waitUntil = function() {
-	var type = this.input;
+	var input = this.inputList[0].connection.getCheck();
+	var type = this.getInput('END').connection.getCheck();
 	var end = this.getFieldValue('END');
-	var code = type + ' while(!' + end + '){\n\tdelay(1);\n\r}\n';
+	var code = input + '\n' + type + ' while(!' + end + '){\n\tdelay(1);\n\r}\n';
 	return code;
 }
 

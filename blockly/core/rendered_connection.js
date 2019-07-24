@@ -202,7 +202,14 @@ Blockly.RenderedConnection.prototype.closest = function(maxLimit, dxy) {
 Blockly.RenderedConnection.prototype.highlight = function() {
   var steps;
   if (this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE) {
-    steps = 'm 0,0 ' + Blockly.BlockSvg.TAB_PATH_DOWN + ' v 5';
+	//console.log(this.getCheck() == 'Number');
+	if(this.getCheck() == 'Boolean'){
+      steps = 'm 0,0 ' + Blockly.BlockSvg.TAB_PATH_DOWN_LOGIC + ' v 5';
+	}else if(this.getCheck() == 'String'){
+      steps = 'm 0,0 ' + Blockly.BlockSvg.TAB_PATH_DOWN_STRING + ' v 5';
+	}else{
+      steps = 'm 0,0 ' + Blockly.BlockSvg.TAB_PATH_DOWN + ' v 5';
+	}
   } else {
     steps = 'm -20,0 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
   }

@@ -8,12 +8,12 @@ goog.require('Blockly');
 
 //Blockly.Constants.Robot.HUE = 20;
 Blockly.BlockSvg.START_HAT = true;
-const eventsHue = 0;
-const motionHue = 230;
-const sensorHue = 125;
-const timingHue = 50;
-const displayHue = 275;
-const soundHue = 315;
+const eventsHue = "#FFAB19";
+const motionHue = "#4C97FF";
+const sensorHue = "#61CEF2";
+const timingHue = "#FFBF00";
+const displayHue = "#9966FF";
+const soundHue = "#CF63CF";
 
 Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 //----------------- EVENTS --------------------
@@ -21,13 +21,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // ANTBOT CODE HAT
   {
     "type": "robot_start",
-    "message0": "when antBot starts at %1",
-	"args0": [
-		{
-			"type": "input_value",
-			"name": "COM"
-		}
-	],
+    "message0": "when antBot starts",
     "colour": eventsHue,
     "nextStatement": "Action"
   },
@@ -279,6 +273,37 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "previousStatement": "Action",
     "nextStatement": "Action"
   },
+  
+  //DISPLAY TEXT
+  {
+	"type": "robot_displayText",
+	"message0": "display text %1",
+	"args0": [
+		{
+			"type": "input_value",
+			"name": "TEXT",
+			"check": "String"
+		}
+	],
+	"colour": displayHue,
+	"previousStatement": "Action",
+	"nextStatement": "Action"
+  },
+  
+  //TEXT CONSTANT
+  {
+	"type": "robot_text",
+	"message0": "%1",
+	"args0": [
+		{
+			"type": "field_input",
+			"name": "TEXT"
+		}
+	],
+	"colour": displayHue,
+	"output": "String"
+  },
+	
 
 //------------------ SOUND -------------------
 

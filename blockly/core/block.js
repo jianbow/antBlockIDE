@@ -81,6 +81,8 @@ Blockly.Block = function(workspace, prototypeName, opt_id) {
   this.tooltip = '';
   /** @type {boolean} */
   this.contextMenu = true;
+  
+ 
 
   /**
    * @type {Blockly.Block}
@@ -259,6 +261,7 @@ Blockly.Block.prototype.colourTertiary_ = null;
  * @private
  */
 Blockly.Block.prototype.styleName_ = null;
+
 
 
 /**
