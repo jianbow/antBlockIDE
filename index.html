@@ -7,15 +7,16 @@
     <!--include necessary javascript and css libraries and such
     //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH
      for when we're done with adding blocks and stuff-->
-	 
+	<!--
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/javascript_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
     <script src="blockly/arduino_compressed.js"></script>
     <script src="blockly/msg/js/en.js"></script>
+	-->
     
     <!-- for while we're developing blockly stuff -->
-	<!--
+	
     <script src="blockly/blockly_uncompressed.js"></script>
     <script src="blockly/blocks/logic.js"></script>
     <script src="blockly/blocks/loops.js"></script>
@@ -38,7 +39,7 @@
     <script src="blockly/generators/arduino/variables.js"></script>
     <script src="blockly/generators/arduino/robot.js"></script>
     <script src="blockly/msg/messages.js"></script>
-	-->
+	
 
     <script src="arduino_manager.js"></script>
 
@@ -324,29 +325,29 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
 	<category name="Events" colour="#FFAB19">
 		<block type="robot_start"></block>
+		<block type="robot_addSensor">
+		  <field name="SENSOR">ultrasonic</field>
+		  <field name="PORT">C</field>
+		</block>
+		<block type="robot_addGyro"></block>
+		<block type="robot_addRemote"></block>
+		<block type="robot_addDisplay">
+		  <field name="PORT1">A</field>
+		  <field name="PORT2">B</field>
+		</block>
 	</category>
 	
 	
 	<category name="Motion" colour="#4C97FF">
 	  <block type="robot_moveTimed">
 	    <field name="OPT">Move forward</field>
-		<field name="SPEED">50</field>
-		<field name="TIME">1</field>
 	  </block>
 	  <block type="robot_move">
 	    <field name="OPT">Move forward</field>
-	    <field name="SPEED">50</field>
 	  </block>
-	  <block type="robot_turnLeftDegrees">
-	    <field name="DEG">15</field>
-	  </block>
-	  <block type="robot_turnRightDegrees">
-	    <field name="DEG">15</field>
-	  </block>
-	  <block type="robot_wheelSpeeds">
-	    <field name="SPEEDL">50</field>
-		<field name="SPEEDR">50</field>
-	  </block>
+	  <block type="robot_turnLeftDegrees"></block>
+	  <block type="robot_turnRightDegrees"></block>
+	  <block type="robot_wheelSpeeds"></block>
 	  <block type="robot_stopMotion"></block>
 	</category>
 	
@@ -382,22 +383,14 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	</category>
 	
 	<category name="Timing" colour="#FFBF00">
-	  <block type="robot_delay">
-		<field name="TIME"></field>
-	  </block>
+	  <block type="robot_delay"></block>
 	  <block type="robot_waitUntil"></block>
 	  <block type="robot_getTime"></block>
 	  <block type="robot_resetTimer"></block>
 	</category>
 	
 	<category name="Loops" colour="#00DEB1">
-	  <block type="controls_repeat_ext">
-	    <value name="TIMES">
-		  <shadow type="math_number">
-		    <field name="NUM">5</field>
-		  </shadow>
-		</value>
-	  </block>
+	  <block type="controls_repeat_ext"></block>
 	  <block type="controls_whileUntil"></block>"
 	  <block type="controls_flow_statements"></block>
 	</category>
