@@ -5,15 +5,17 @@
     <meta charset="utf-8">
     <title>antBlock IDE</title>
     <!--include necessary javascript and css libraries and such
-    //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH-->
-    <!-- for when we're done with adding blocks and stuff
+    //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH
+     for when we're done with adding blocks and stuff-->
+	 
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/javascript_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
     <script src="blockly/arduino_compressed.js"></script>
     <script src="blockly/msg/js/en.js"></script>
-    -->
+    
     <!-- for while we're developing blockly stuff -->
+	<!--
     <script src="blockly/blockly_uncompressed.js"></script>
     <script src="blockly/blocks/logic.js"></script>
     <script src="blockly/blocks/loops.js"></script>
@@ -36,6 +38,7 @@
     <script src="blockly/generators/arduino/variables.js"></script>
     <script src="blockly/generators/arduino/robot.js"></script>
     <script src="blockly/msg/messages.js"></script>
+	-->
 
     <script src="arduino_manager.js"></script>
 
@@ -121,6 +124,10 @@
                   text-align:center;
                   padding-top:20px;
                 }
+				
+				.blocklyFlyoutLabelText {
+				  color: #fff !important;
+				}
 
                 /*#codeDiv {
                     border-style: solid;
@@ -287,7 +294,7 @@ function generateCode() {
 
 
     function getID(){
-    var labels = document.getElementsByClassName("blocklyTreeLabel");
+    var labels = document.getElementsByClassName("blocklyTreeRowItem");
     for(var i = 0; i < labels.length; i++ ){
             //document.getElementById(labels[i]).style.backgroundColor='red');
             alert(labels[i].id);
@@ -344,10 +351,12 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	</category>
 	
 	<category name="Sensors" colour="#61CEF2">
+	  <label text="Ultrasonic Sensor"></label>
 	  <block type="robot_getDistance">
 	    <field name="UNIT">cm</field>
 	  </block>
 	  <sep gap="50"></sep>
+	  <label text="Line Follower"></label>
 	  <block type="robot_getLineFollower">
 	    <field name="SIDE">right</field>
 	  </block>
@@ -355,6 +364,7 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	    <field name="POS">on</field>
 	  </block>
 	  <sep gap="50"></sep>
+	  <label text="Gyro Sensor"></label>
 	  <block type="robot_getAngle"></block>
 	  <block type="robot_resetGyro"></block>
 	</category>
@@ -373,7 +383,7 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	
 	<category name="Timing" colour="#FFBF00">
 	  <block type="robot_delay">
-		<field name="TIME">1</field>
+		<field name="TIME"></field>
 	  </block>
 	  <block type="robot_waitUntil"></block>
 	  <block type="robot_getTime"></block>
@@ -381,22 +391,16 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	</category>
 	
 	<category name="Loops" colour="#00DEB1">
-	  <block type="controls_repeat">
-		<field name="TIMES">5</field>
+	  <block type="controls_repeat_ext">
+	    <value name="TIMES">
+		  <shadow type="math_number">
+		    <field name="NUM">5</field>
+		  </shadow>
+		</value>
 	  </block>
 	  <block type="controls_whileUntil"></block>"
 	  <block type="controls_flow_statements"></block>
 	</category>
-<!--
-	<category name="If Statements" colour="%{BKY_LOGIC_HUE}">
-      <block type="controls_if"></block>
-      <block type="controls_if">
-        <mutation else="1"></mutation>
-      </block>
-      <block type="controls_if">
-        <mutation elseif="1" else="1"></mutation>
-      </block>
-    </category>-->
 
 	<category name="Logic" colour="%{BKY_LOGIC_HUE}">
       <block type="controls_if"></block>
@@ -438,7 +442,7 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
                     <div id="codeTitle">
                         Code
                     </div>
-                    <!--<button type="button" class="btn btn-outline-light mx-2" onclick="getID()">geTID</button>-->
+                    <!--<button type="button" class="btn btn-outline-light mx-2" onclick="getID()">geTID</button> !important -->
 
                 </div>
                 <div class="card-body overflow-auto">
