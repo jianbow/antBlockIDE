@@ -857,7 +857,7 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(pathObject) {
 	    highlightSteps.push('V 0.5 H 1');
 	  }else if(this.outputConnection.getCheck() == "String"){
 		  highlightSteps.push('V', Blockly.BlockSvg.TAB_HEIGHT - 1);
-		  highlightSteps.push('m -8,0 v -11 m 8,0')
+		  highlightSteps.push('l -8,0 v -11 l 8,0')
 	  }else{
         highlightSteps.push('V', Blockly.BlockSvg.TAB_HEIGHT - 1.5);
         highlightSteps.push('m', (Blockly.BlockSvg.TAB_WIDTH * -0.92) +

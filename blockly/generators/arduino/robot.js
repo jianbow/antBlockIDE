@@ -9,7 +9,7 @@ goog.require('Blockly.Arduino');
 //---------------- EVENTS ------------------------
 Blockly.Arduino.robot_start = function() {
 	Blockly.Arduino.definitions_['AntBot_library'] = '#include "AntBot.h"';
-	Blockly.Arduino.setups_['antBot_constructor'] = 'AntBot antBot;';
+	Blockly.Arduino.setups_['antBot_constructor'] = 'AntBot antBot(true);';
 	var code = '';
 	return code;
 }
