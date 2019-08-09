@@ -26,21 +26,6 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "nextStatement": "Action"
   },
  
-  //COM PORT INPUT
-  {
-	"type": "robot_comPort",
-	"message0": "%1",
-	"args0": [
-		{
-			"type": "field_dropdown",
-			"name": "COM",
-			"options": [["COM3", "COM3"],
-						["COM4", "COM4"]]
-		}
-	],
-	"colour": eventsHue,
-	"output": "String"
-  },
   
   //ADD SENSORS
   {
@@ -64,25 +49,46 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 	"previousStatement": "Action",
 	"nextStatement": "Action"
   },
-
-  //SENSOR PORT INPUT
+ 
+  // ADD GYRO
   {
-	"type": "robot_sensorPort",
-	"message0": "port %1",
+	"type": "robot_addGyro",
+	"message0": "add gyro sensor",
+	"colour": eventsHue,
+	"previousStatement": "Action",
+	"nextStatement": "Action"
+  },
+  
+  // ADD IR REMOTE
+  {
+	"type": "robot_addRemote",
+	"message0": "add IR remote",
+	"colour": eventsHue,
+	"previousStatement": "Action",
+	"nextStatement": "Action"
+  },
+
+  // ADD DISPLAY 
+  {
+	"type": "robot_addDisplay",
+	"message0": "add LCD display at %1 and %2",
 	"args0": [
 		{
 			"type": "field_dropdown",
-			"name": "PORT",
-			"options": [["A", "A"],
-						["B", "B"],
-						["C", "C"],
-						["D", "D"]]
+			"name": "PORT1",
+			"options": [["A", "A"]]	
+		},
+		{
+			"type": "field_dropdown",
+			"name": "PORT2",
+			"options": [["B", "B"]]			
 		}
 	],
 	"colour": eventsHue,
-	"output": "String"
+	"previousStatement": "Action",
+	"nextStatement": "Action"
   },
-
+  
 //----------------- MOTION ---------------------
 
   // MOVE FOR A CERTAIN NUMBER OF SECONDS
@@ -101,11 +107,11 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 						["turn left", "LEFT"]]
 		},
         {
-			"type": "field_number",
+			"type": "input_value",
 			"name": "SPEED"
         },
 		{
-			"type": "field_number",
+			"type": "input_value",
 			"name": "TIME"
 		}
     ],
@@ -129,7 +135,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 						["turn left", "LEFT"]]
 		},
         {
-			"type": "field_number",
+			"type": "input_value",
 			"name": "SPEED"
         }
     ],
@@ -146,7 +152,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 	"message0": "turn left %1 degrees",
 	"args0": [
 		{
-			"type": "field_number",
+			"type": "input_value",
 			"name": "DEG"
 		}
 	],
@@ -161,7 +167,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 	"message0": "turn right %1 degrees",
 	"args0": [
 		{
-			"type": "field_number",
+			"type": "input_value",
 			"name": "DEG"
 		}
 	],
@@ -176,11 +182,11 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 	"message0": "set left wheel to %1% and right wheel to %2%",
 	"args0": [
 		{
-			"type": "field_number",
+			"type": "input_value",
 			"name": "SPEEDL"
 		},
 		{
-			"type": "field_number",
+			"type": "input_value",
 			"name": "SPEEDR"
 		}
 	],
@@ -285,6 +291,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 			"check": "String"
 		}
 	],
+	"inputsInline": true,
 	"colour": displayHue,
 	"previousStatement": "Action",
 	"nextStatement": "Action"
@@ -293,7 +300,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //TEXT CONSTANT
   {
 	"type": "robot_text",
-	"message0": "'%1'",
+	"message0": "\"%1\"",
 	"args0": [
 		{
 			"type": "field_input",
@@ -316,6 +323,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "nextStatement": "Action"
   },
   
+  
 //------------------ TIMING -------------------
 
   // DELAY CERTAIN NUMBER OF SECONDS
@@ -324,15 +332,16 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "message0": "wait %1 sec",
     "args0": [
         {
-			"type": "field_number",
-			"name": "TIME"
+			"type": "input_value",
+			"name": "TIME",
+			"check": "Number"
         }
     ],
     "colour": timingHue,
     "previousStatement": "Action",
     "nextStatement": "Action"
   },
-  
+
   // WAIT UNTIL BOOLEAN
   {
     "type": "robot_waitUntil",
@@ -344,6 +353,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 			"check": "Boolean"
         }
     ],
+	"inputsInline": true,
     "colour": timingHue,
     "previousStatement": "Action",
     "nextStatement": "Action"
