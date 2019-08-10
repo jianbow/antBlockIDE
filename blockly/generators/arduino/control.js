@@ -92,3 +92,21 @@ Blockly.Arduino.controls_whileUntil = function() {
   }
   return 'while (' + argument0 + ') {\n' + branch + '}\n';
 }
+
+Blockly.Arduino.controls_repeat_ext = function() {
+  var count = Blockly.Arduino.valueToCode(this, 'TIMES', Blockly.Arduino.ORDER_ATOMIC) || 5;
+  var branch = Blockly.Arduino.statementToCode(this, 'DO'); 
+  return 'for (int i = 0; i < ' + count + '; i++) {\n' + branch + '}\n';
+}
+
+Blockly.Arduino.controls_flow_statements = function() {
+  // Flow statements: continue, break.
+  var opt = this.getFieldValue('FLOW');
+  var code = '';
+  if(opt == 'BREAK'){
+	  code = 'break;\n';
+  }else if(opt == 'CONTINUE'){
+	  code = 'continue;\n';
+  }
+  return code;
+}

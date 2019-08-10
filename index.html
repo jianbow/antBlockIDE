@@ -4,19 +4,19 @@
 
     <meta charset="utf-8">
     <title>antBlock IDE</title>
-    <!--include necessary javascript and css libraries and such
-    //CREATE NEW JAVASCRIPT FILE FOR LOADING TO BOARD, INCLUDE HERE WITH SRC PATH
-     for when we're done with adding blocks and stuff-->
-	<!--
+	
+	
+    <!--for when we're done with adding blocks and stuff-->
+	
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/javascript_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
     <script src="blockly/arduino_compressed.js"></script>
     <script src="blockly/msg/js/en.js"></script>
-	-->
+	
     
     <!-- for while we're developing blockly stuff -->
-	
+	<!--
     <script src="blockly/blockly_uncompressed.js"></script>
     <script src="blockly/blocks/logic.js"></script>
     <script src="blockly/blocks/loops.js"></script>
@@ -39,7 +39,7 @@
     <script src="blockly/generators/arduino/variables.js"></script>
     <script src="blockly/generators/arduino/robot.js"></script>
     <script src="blockly/msg/messages.js"></script>
-	
+	-->
 
     <script src="arduino_manager.js"></script>
 
@@ -181,7 +181,7 @@
                     </button>
                 </li>
                 <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload(document.getElementById('code').innerHTML)" onmouseover="textChange(2)" onmouseout="textReverse()">
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload(document.getElementById('code').textContent)" onmouseover="textChange(2)" onmouseout="textReverse()">
                         <i class="fas fa-arrow-circle-down"></i>
                     </button>
                 </li>
@@ -295,12 +295,12 @@ function generateCode() {
 
 
     function getID(){
-    var labels = document.getElementsByClassName("blocklyTreeRowItem");
-    for(var i = 0; i < labels.length; i++ ){
+   // var labels = document.getElementsByClassName("blocklyTreeRowItem");
+   // for(var i = 0; i < labels.length; i++ ){
             //document.getElementById(labels[i]).style.backgroundColor='red');
-            alert(labels[i].id);
-        }       
-    
+    //        alert(labels[i].id);
+   //     }       
+    alert(document.getElementById('code').textContent);
       }
 
     </script>
@@ -325,26 +325,15 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
 	<category name="Events" colour="#FFAB19">
 		<block type="robot_start"></block>
-		<block type="robot_addSensor">
-		  <field name="SENSOR">ultrasonic</field>
-		  <field name="PORT">C</field>
-		</block>
+		<block type="robot_addSensor"></block>
 		<block type="robot_addGyro"></block>
 		<block type="robot_addRemote"></block>
-		<block type="robot_addDisplay">
-		  <field name="PORT1">A</field>
-		  <field name="PORT2">B</field>
-		</block>
+		<block type="robot_addDisplay"></block>
 	</category>
 	
-	
 	<category name="Motion" colour="#4C97FF">
-	  <block type="robot_moveTimed">
-	    <field name="OPT">Move forward</field>
-	  </block>
-	  <block type="robot_move">
-	    <field name="OPT">Move forward</field>
-	  </block>
+	  <block type="robot_moveTimed"></block>
+	  <block type="robot_move"></block>
 	  <block type="robot_turnLeftDegrees"></block>
 	  <block type="robot_turnRightDegrees"></block>
 	  <block type="robot_wheelSpeeds"></block>
@@ -353,17 +342,11 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	
 	<category name="Sensors" colour="#61CEF2">
 	  <label text="Ultrasonic Sensor"></label>
-	  <block type="robot_getDistance">
-	    <field name="UNIT">cm</field>
-	  </block>
+	  <block type="robot_getDistance"></block>
 	  <sep gap="50"></sep>
 	  <label text="Line Follower"></label>
-	  <block type="robot_getLineFollower">
-	    <field name="SIDE">right</field>
-	  </block>
-	  <block type="robot_line">
-	    <field name="POS">on</field>
-	  </block>
+	  <block type="robot_getLineFollower"></block>
+	  <block type="robot_line"></block>
 	  <sep gap="50"></sep>
 	  <label text="Gyro Sensor"></label>
 	  <block type="robot_getAngle"></block>
@@ -396,7 +379,8 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	</category>
 
 	<category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <block type="controls_if"></block>
+	  <block type="controls_if"></block>
+      <!--<block type="controls_ifelse"></block>-->
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
       <block type="logic_negate"></block>
@@ -405,23 +389,9 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
 	<category name="Math" colour="#FFDB29">
 	  <block type="math_number"></block>
-	  <block type="math_arithmetic">
-	    <field name="A">0</field>
-		<field name="OP">+</field>
-		<field name="B">0</field>
-	  </block>
+	  <block type="math_arithmetic"></block>
 	</category>
 	
-	
-	<!--
-    <category name="Robot" colour=0>
-        <block type="robot_start"></block>
-        <block type="robot_end"></block>
-		<block type="robot_delay">
-		  <field name="TIME">1</field>
-		</block>
-    </category>
-	-->
 	
 
 
@@ -435,7 +405,6 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
                     <div id="codeTitle">
                         Code
                     </div>
-                    <!--<button type="button" class="btn btn-outline-light mx-2" onclick="getID()">geTID</button> !important -->
 
                 </div>
                 <div class="card-body overflow-auto">
@@ -461,6 +430,7 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
       //INJECT BLOCKLY INTO DIV
       var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
 	  workspace.addChangeListener(generateCode);
+	  //workspace.addChangeListener(Blockly.Events.disableOrphans);
 			
     </script>
 
