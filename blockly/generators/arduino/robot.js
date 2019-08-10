@@ -64,25 +64,29 @@ Blockly.Arduino.robot_addDisplay = function() {
 
 //----------------- MOTION ---------------------
 Blockly.Arduino.robot_moveTimed = function() {
-	var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || 50;
+	var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || 0;
+	// Limit speed to 0-100%.
 	if(speed > 100){
 		speed = 100;
 	}else if(!(speed > 0)){
 		speed = 0;
 	}
+	// If the speed needs to be limited, change block value.
 	if(this.getInput('SPEED').connection.targetConnection !== null){
 		this.getInput('SPEED').connection.targetConnection.getSourceBlock().setFieldValue(speed, 'NUM');
 	}
-	
-	var time = 1000 * Blockly.Arduino.valueToCode(this, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || 1000;
-	if(time > 0){
-		//console.log('less');
-	}else{
+	var time = 1000 * Blockly.Arduino.valueToCode(this, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || 0;
+	// Limit time to positive numbers.
+	if(!(time > 0)){
 		time = 0;
-		this.getInput('TIME').connection.targetConnection.getSourceBlock().setFieldValue(time, 'TIME');
 	}
+	// If time needs to be limited, change block value.
+	if(this.getInput('TIME').connection.targetConnection !== null){
+		this.getInput('TIME').connection.targetConnection.getSourceBlock().setFieldValue(time / 1000.0, 'NUM');
+	}		
 	var dir = this.getFieldValue('DIR');
 	var code = 'antBot.'
+	// Sift through dropdown menu.
 	if(dir == 'FORWARD'){
 		code += 'forward';
 	}else if(dir == 'BACKWARD'){
@@ -98,7 +102,17 @@ Blockly.Arduino.robot_moveTimed = function() {
 
 Blockly.Arduino.robot_move = function() {
 	var dir = this.getFieldValue('DIR');
-	var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || 50;
+	var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || 0;
+	// Limit speed to 0-100%.
+	if(speed > 100){
+		speed = 100;
+	}else if(!(speed > 0)){
+		speed = 0;
+	}
+	// If the speed needs to be limited, change block value.
+	if(this.getInput('SPEED').connection.targetConnection !== null){
+		this.getInput('SPEED').connection.targetConnection.getSourceBlock().setFieldValue(speed, 'NUM');
+	}
 	var code = 'antBot.'
 	if(dir == 'FORWARD'){
 		code += 'forward';
@@ -114,14 +128,14 @@ Blockly.Arduino.robot_move = function() {
 };
 
 Blockly.Arduino.robot_turnLeftDegrees = function() {
-	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 15;
+	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 0;
 	var code = 'while(antBot.gyro.getAngle() < ' + deg + '){\n  antBot.turnLeft(50);\n}\nantBot.stopMotion();\n';
 	return code;
 }
 
 Blockly.Arduino.robot_turnRightDegrees = function() {
 	//var deg = this.getFieldValue('DEG');
-	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 15;
+	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 0;
 	var code = 'while(antBot.gyro.getAngle() < ' + deg + '){\n  antBot.turnRight(50);\n}\nantBot.stopMotion();\n';
 	return code;
 }
@@ -129,8 +143,28 @@ Blockly.Arduino.robot_turnRightDegrees = function() {
 Blockly.Arduino.robot_wheelSpeeds = function() {
 	//var left = this.getFieldValue('SPEEDL');
 	//var right = this.getFieldValue('SPEEDR');
-	var left = Blockly.Arduino.valueToCode(this, 'SPEEDL', Blockly.Arduino.ORDER_ATOMIC) || 50;
-	var right = Blockly.Arduino.valueToCode(this, 'SPEEDR', Blockly.Arduino.ORDER_ATOMIC) || 50;
+	var left = Blockly.Arduino.valueToCode(this, 'SPEEDL', Blockly.Arduino.ORDER_ATOMIC) || 0;
+	// Limit speed to 0-100%.
+	if(left > 100){
+		left = 100;
+	}else if(!(left > 0)){
+		left = 0;
+	}
+	// If the speed needs to be limited, change block value.
+	if(this.getInput('SPEEDL').connection.targetConnection !== null){
+		this.getInput('SPEEDL').connection.targetConnection.getSourceBlock().setFieldValue(left, 'NUM');
+	}
+	var right = Blockly.Arduino.valueToCode(this, 'SPEEDR', Blockly.Arduino.ORDER_ATOMIC) || 0;
+	// Limit speed to 0-100%.
+	if(right > 100){
+		right = 100;
+	}else if(!(right > 0)){
+		right = 0;
+	}
+	// If the speed needs to be limited, change block value.
+	if(this.getInput('SPEEDR').connection.targetConnection !== null){
+		this.getInput('SPEEDR').connection.targetConnection.getSourceBlock().setFieldValue(right, 'NUM');
+	}
 	var code = 'antBot.setMotors(' + left + ', ' + right + ');\n';
 	return code;
 }
@@ -219,6 +253,14 @@ Blockly.Arduino.robot_playNote = function() {
 //--------------------- TIMING ----------------------	
 Blockly.Arduino.robot_delay = function() {
 	var time = 1000 * Blockly.Arduino.valueToCode(this, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || '0';
+	// Limit time to positive numbers.
+	if(!(time > 0)){
+		time = 0;
+	}
+	// If time needs to be limited, change block value.
+	if(this.getInput('TIME').connection.targetConnection !== null){
+		this.getInput('TIME').connection.targetConnection.getSourceBlock().setFieldValue(time / 1000.0, 'NUM');
+	}		
 	var code = 'delay(' + time + ');\n';
 	return code;
 }
@@ -232,13 +274,14 @@ Blockly.Arduino.robot_waitUntil = function() {
 
 Blockly.Arduino.robot_getTime = function() {
 	//add timer = millis(); beforehand
-	Blockly.Arduino.setups_['timer'] = 'long timer = 0;';
-	var code = 'timer';
+	//Blockly.Arduino.setups_['timer'] = 'long timer = 0;';
+	//var code = 'timer';
+	var code = 'millis()/1000 - resetTime';
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 }
 
 Blockly.Arduino.robot_resetTimer = function() {
-	Blockly.Arduino.setups_['timer'] = 'long timer = 0;';
-	var code = 'timer = 0;\n';
+	Blockly.Arduino.setups_['timer'] = 'long resetTime = 0;';
+	var code = 'resetTime = millis()/1000;\n';
 	return code;
 }
