@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\arduino-manager"
+    "\\arduino-manager",
+    "\\css"
   ],
-  "SelectedNode": "\\arduino_manager.js",
+  "SelectedNode": "\\arduino-manager\\arduinoUploader.py",
   "PreviewInSolutionExplorer": false
 }

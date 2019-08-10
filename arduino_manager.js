@@ -82,10 +82,10 @@ function changeSpinner(status) {
 
 }
 
-function heck() {
+/*function heck() {
     alert(document.getElementById("port").innerHTML = "<i class='fas fa-file-export mr-1'></i>OOGA");
 }
-
+*/
 function save() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
@@ -120,13 +120,15 @@ window.onload = function () {
     var fileInput = document.getElementById('loadFile');
     //var fileDisplayArea = document.getElementById('fileDisplayArea');
 
+    //WE LOOK FOR CHANGE IN INPUT
     fileInput.addEventListener('change', function (e) {
         var file = fileInput.files[0];
         var textType = /text.*/;
 
         if (file.type.match(textType)) {
+            //ANOTHER IMPORTED JAVASCRIPT LIBRARY
             var reader = new FileReader();
-
+            //THEN, WE MOVE THE TEXT INTO XML INTO THE WORKSPACE
             reader.onload = function (e) {
                 alert(reader.result);
                 var xml = Blockly.Xml.textToDom(reader.result);
@@ -136,7 +138,8 @@ window.onload = function () {
 
             reader.readAsText(file);
         } else {
-            alert('uh oh');
+            //ESCAPE CODE BABYYY
+            alert('Uh oh. We can\'t load that file');
             //fileDisplayArea.innerText = "File not supported!"
         }
     });
@@ -166,36 +169,21 @@ function checkDevices() {
     //CALL PYTHON FILE, PYTHON WRITES TO JSON
     //   var process = spawn('python', ["./arduino-manager/comTest.py"]);
 
-
     const { execFile } = require('child_process');
+
     const child = execFile('python', ["./arduino-manager/comTest.py"], () => {
         const fs = require('fs');
         let rawdata = fs.readFileSync('./arduino-manager/arduinoSettings.json');
-        let student = JSON.parse(rawdata);
-        //alert('asdfasdf');
-        //console.log(student.port);
-        //alert(student.port);
-        if (student.port != 0 && student.port != null) {
-            document.getElementById("port").innerHTML = "<i class='fas fa-file-export mr-1'></i> " + student.port;
-            alert('Board Detected at ' + student.port);
+        let com = JSON.parse(rawdata);
+
+        if (com.port != 0 && com.port != null) {
+            document.getElementById("port").innerHTML = "<i class='fas fa-file-export mr-1'></i> " + com.port;
+            alert('Board Detected at ' + com.port);
         }
         else {
             alert('No Board Detected');
         }
     });
-
-    // Takes stdout data from script which executed
-    // with arguments and send this data to res object
-    //process.stdout.on('data', function(data) {
-    //     res.send(data.toString());
-
-
-    // const fs = require('fs');
-    // let rawdata = fs.readFileSync('./arduino-manager/arduinoSettings.json');
-    // let student = JSON.parse(rawdata);
-    // //console.log(student.port);
-    // alert(student.port);
-    //// document.getElementById("code").innerHTML = student.port;
 }
 
 function saveFile() {
@@ -203,4 +191,11 @@ function saveFile() {
     var xml_text = Blockly.Xml.domToText(xml);
     var blob = new Blob([xml_text], { type: "text/plain;charset=utf-8" });
     saveAs(blob, "untitled");
+}
+
+function testSTD() {
+    const execFile = require('child_process').execFile;
+    const child = execFile('python', ['./arduino-manager/arduinoUploader.py', 'void setup(){} void loop(){}'], (error, stdout, stderr) => {
+        document.getElementById('message').innerHTML = stdout;
+    });
 }
