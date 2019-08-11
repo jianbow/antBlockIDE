@@ -7,6 +7,8 @@ import subprocess
 #pip install pyserial
 
 compile_args = ["arduino_debug","--upload","c:/Users/Leo/test/test.ino"]
+print sys.argv[0]
+print sys.argv[1]
 subprocess.call(compile_args)
 
 
