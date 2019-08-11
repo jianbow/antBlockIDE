@@ -28,7 +28,7 @@ let mainWindow
 var obj = {
     table: []
 };
-obj.table.push({ 1: 2, yee: 'haw' });
+obj.table.push({ ifYou: "readThis", nice: 'job' });
 var json = JSON.stringify(obj);
 var fs = require('fs');
 fs.writeFile('arduino-manager\\arduinoSettings.json', json, 'utf8', function (err) {

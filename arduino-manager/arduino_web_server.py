@@ -139,7 +139,6 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
             print "Uploading with %s" % (" ".join(compile_args))
             rc = subprocess.call(compile_args)
-
             if not rc == 0:
                 print "arduino --upload returned " + `rc`                            
                 self.send_response(400)
