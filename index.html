@@ -4,19 +4,19 @@
 
     <meta charset="utf-8">
     <title>antBlock IDE</title>
-	
-	
+
     <!--for when we're done with adding blocks and stuff-->
-	<!--
+
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/javascript_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
     <script src="blockly/arduino_compressed.js"></script>
     <script src="blockly/msg/js/en.js"></script>
-	-->
+
+
     
     <!-- for while we're developing blockly stuff -->
-
+	<!--
     <script src="blockly/blockly_uncompressed.js"></script>
     <script src="blockly/blocks/logic.js"></script>
     <script src="blockly/blocks/loops.js"></script>
@@ -39,9 +39,8 @@
     <script src="blockly/generators/arduino/variables.js"></script>
     <script src="blockly/generators/arduino/robot.js"></script>
     <script src="blockly/msg/messages.js"></script>
-	
+	-->
 
-    <script src="arduino_manager.js"></script>
 
 
     <!--CSS links-->
@@ -59,6 +58,8 @@
     <script src="jquery-3.4.1.min.js"></script>
     <script src="./renderer.js"></script>
     <script src="node_modules\file-saver\dist\FileSaver.min.js"></script>
+    <script src="arduino-manager\uploader.js"></script>
+    <script src="arduino-manager\arduino_manager.js"></script>
 
     <!--To make the code look pretty -->
     <link rel="stylesheet" href="highlight\styles\arduino-light.css">
@@ -67,70 +68,68 @@
 
 
     <style>
-                html, body {
-                    height: 100%;
-                    margin: 2;
-                }
+        html, body {
+            height: 100%;
+            margin: 2;
+        }
 
-                body {
-                    background-color: #f2f2f2;
-                    height: 100%;
-                    overflow: hidden;
-                    font-family:robotoregular;
-                }
+        body {
+            background-color: #f2f2f2;
+            height: 100%;
+            overflow: hidden;
+            font-family: robotoregular;
+        }
 
-                #blocklyDiv {
-                    height: 100%;
-                }
+        #blocklyDiv {
+            height: 100%;
+        }
 
-                #rowOne {
-                    height: 90vh;
-                }
+        #rowOne {
+            height: 90vh;
+        }
 
-                /*.card-header {
+        /*.card-header {
                     background-color:  #00630a;
                 }*/
 
-                .mainBackground {
-                    background-color: #196F3D;
-                   // background-color: #0061FF;
+        .mainBackground {
+            background-color: #196F3D;
+            // background-color: #0061FF;
+        }
 
-                }
+        .secondaryBackground {
+            background-color: #117864;
+        }
 
-                .secondaryBackground{
-                   background-color: #117864;
-                }
+        /* icon-added icon styles */
 
-                /* icon-added icon styles */
-
-                /*h3::after {
+        /*h3::after {
                     font-family: "Font Awesome 5 Brands";
                     content: "\f099";
                 }*/
 
-                .blocklySvg {
-                    background-color: #ffffff !important;
-                }
+        .blocklySvg {
+            background-color: #ffffff !important;
+        }
 
-                .blocklyToolboxDiv {
-                    background: #ffffff;
-                    border-right-width: 5px;
-                    border-right-style: solid;
-                    border-right-color: #117864;
+        .blocklyToolboxDiv {
+            background: #ffffff;
+            border-right-width: 5px;
+            border-right-style: solid;
+            border-right-color: #117864;
+        }
 
-                }
+        .blocklyTreeLabel {
+            font-size: 20px !important;
+            text-align: center;
+            padding-top: 20px;
+        }
 
-                .blocklyTreeLabel {
-                  font-size: 20px !important;
-                  text-align:center;
-                  padding-top:20px;
-                }
-				
-				.blocklyFlyoutLabelText {
-				  color: #fff !important;
-				}
+        .blocklyFlyoutLabelText {
+            color: #fff !important;
+        }
 
-                /*#codeDiv {
+        /*#codeDiv {
                     border-style: solid;
                     border-width: 2px;
                     border-color: #42cbf5;
@@ -140,24 +139,24 @@
 
 
 
-                .blocklyText, .blocklyHtmlInput, .blocklyTreeLabel {
-                    font-family: 'robotomedium' !important;
-                 }
+        .blocklyText, .blocklyHtmlInput, .blocklyTreeLabel {
+            font-family: 'robotomedium' !important;
+        }
 
 
-                .blocklyTreeRow {
-                  height: 35px !important;
-                  margin-top: 5px !important;
-                  padding-top: 5px !important;
-                }
+        .blocklyTreeRow {
+            height: 35px !important;
+            margin-top: 5px !important;
+            padding-top: 5px !important;
+        }
 
-                #errorMessage {
-                    color:red !important;
-                }
+        #errorMessage {
+            color: red !important;
+        }
 
-                #message {
-                    color:white;
-                }
+        #message {
+            color: white;
+        }
     </style>
 
 </head>
@@ -176,12 +175,12 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <!--CHANGE THE ONCLICK FUNCTION TO THE FUNCTION IN THE NEW JS FILE.-->
-                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Restore Default" onclick="upload('void setup() {pinMode(8,OUTPUT); digitalWrite(8,HIGH);} void loop() {} ')" onmouseover="textChange(1)" onmouseout="textReverse()">
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Restore Default" onclick="uploadLocal('void setup() {pinMode(9,OUTPUT); digitalWrite(9,HIGH);} void loop() {} ')" onmouseover="textChange(1)" onmouseout="textReverse()">
                         <i class="fas fa-redo"></i>
                     </button>
                 </li>
                 <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="upload(document.getElementById('code').textContent)" onmouseover="textChange(2)" onmouseout="textReverse()">
+                    <button type="button" class="btn btn-outline-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Upload" onclick="uploadLocal(document.getElementById('code').innerHTML)" onmouseover="textChange(2)" onmouseout="textReverse()">
                         <i class="fas fa-arrow-circle-down"></i>
                     </button>
                 </li>
@@ -235,16 +234,8 @@ function generateCode() {
 	var code = Blockly.Arduino.workspaceToCode(workspace);
                 document.getElementById("code").innerHTML = code;
 }
-            
-
     
-</script>
 
-
-
-
-
-    <script>
     
     
     
@@ -260,12 +251,13 @@ function generateCode() {
                     workspace.addChangeListener(myUpdateFunction);
 
 
-                function uploadToArduino(event) {
+        /*        function uploadToArduino(event) {
                     var code = Blockly.Arduino.workspaceToCode(workspace);
                         alert(code);
                         upload(code);
                         alert("Upload complete");
                     }
+                    */
 
                 function textChange(button) {
                     switch (button) {
@@ -293,7 +285,7 @@ function generateCode() {
                             document.getElementById("textChanged").innerHTML = "";
                         }
 
-
+    //FOR DIAGNOSTICS
     function getID(){
    // var labels = document.getElementsByClassName("blocklyTreeRowItem");
    // for(var i = 0; i < labels.length; i++ ){
@@ -303,10 +295,12 @@ function generateCode() {
     alert(document.getElementById('code').textContent);
       }
 
-    </script>
+</script>
 
 
 <div class="row container-fluid my-4" id="rowOne">
+
+
 <div class="col-8">
 	<div id="blocklyDiv" style="height: 95%; width: 100%;   border-radius: 5px; border: 5px solid #117864;"></div>
 </div>
@@ -392,9 +386,6 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 	  <block type="math_arithmetic"></block>
 	</category>
 	
-	
-
-
 
 </xml>
 
@@ -406,6 +397,7 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
                         Code
                     </div>
 
+
                 </div>
                 <div class="card-body overflow-auto">
                     <pre><code class="c++" id="code"></code></pre>
@@ -416,7 +408,7 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
                 <div class="card-header text-white">
                     Messages
                 </div>
-                <div class="card-body"  style="background:#0F0F0F">
+                <div class="card-body overflow-auto"  style="background:#0F0F0F">
                     <div class="input-group mb-3" id="message" >
 
                     </div>
@@ -429,8 +421,10 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
       //INJECT BLOCKLY INTO DIV
       var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
-	  workspace.addChangeListener(generateCode);
-	  //workspace.addChangeListener(Blockly.Events.disableOrphans);
+        workspace.addChangeListener(generateCode);
+        //DISABLE BLOCKS THAT AREN'T CONNECTED
+
+	    //workspace.addChangeListener(Blockly.Events.disableOrphans);
 			
     </script>
 

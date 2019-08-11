@@ -134,15 +134,12 @@ Blockly.Arduino.robot_turnLeftDegrees = function() {
 }
 
 Blockly.Arduino.robot_turnRightDegrees = function() {
-	//var deg = this.getFieldValue('DEG');
 	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 0;
 	var code = 'while(antBot.gyro.getAngle() < ' + deg + '){\n  antBot.turnRight(50);\n}\nantBot.stopMotion();\n';
 	return code;
 }
 
 Blockly.Arduino.robot_wheelSpeeds = function() {
-	//var left = this.getFieldValue('SPEEDL');
-	//var right = this.getFieldValue('SPEEDR');
 	var left = Blockly.Arduino.valueToCode(this, 'SPEEDL', Blockly.Arduino.ORDER_ATOMIC) || 0;
 	// Limit speed to 0-100%.
 	if(left > 100){
@@ -266,16 +263,13 @@ Blockly.Arduino.robot_delay = function() {
 }
 
 Blockly.Arduino.robot_waitUntil = function() {
-	//var end = this.getFieldValue('END');
 	var end = Blockly.Arduino.valueToCode(this, 'END', Blockly.Arduino.ORDER_ATOMIC) || 'false';
 	var code = 'while(!' + end + '){\n  delay(1);\n}\n';
 	return code;
 }
 
 Blockly.Arduino.robot_getTime = function() {
-	//add timer = millis(); beforehand
-	//Blockly.Arduino.setups_['timer'] = 'long timer = 0;';
-	//var code = 'timer';
+	Blockly.Arduino.setups_['timer'] = 'long resetTimer = 0;';
 	var code = 'millis()/1000 - resetTime';
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 }

@@ -28,7 +28,7 @@ let mainWindow
 var obj = {
     table: []
 };
-obj.table.push({ 1: 2, yee: 'haw' });
+obj.table.push({ ifYou: "readThis", nice: 'job' });
 var json = JSON.stringify(obj);
 var fs = require('fs');
 fs.writeFile('arduino-manager\\arduinoSettings.json', json, 'utf8', function (err) {
@@ -51,7 +51,7 @@ function createWindow () {
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         //THIS ONE LINE OF CODE TOOK ME 3 DAYS. ELECTRON DOCS LIE AND SAY NODE API USABLE. CHANGED SINCE VERSION 5, MUST SET TRUE
-        //nodeIntegration: true
+        nodeIntegration: true
       }
 
   })

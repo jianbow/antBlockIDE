@@ -1,4 +1,20 @@
-﻿#\3A 1\.label::before {
+﻿
+/*
+    USED document.getElementsByClassName TO FIND ALL THESE VALUES
+
+    ALL BLOCKLY ELEMENTS ARE CONVERTED TO HTML OBJECTS IN HTML DOM (LOOK IT UP)
+    THEY ALL HAVE IDS AND CLASSES. HOWEVER, IDS ARE CONVOLUTED. 
+   
+
+    Honestly if you are editing this file you've come a long ways to modify the UI.
+
+*/
+
+/*
+    THESE UNICODES CAN BE FOUND ON THE FONT AWESOME WEBSITE
+*/
+
+#\3A 1\.label::before {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     content: "\f101";
