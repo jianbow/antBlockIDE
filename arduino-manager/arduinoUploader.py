@@ -24,7 +24,7 @@ def uploadArduino():
 			#CALLS SUBPROCESS
 
 			#ADD BOARD PARAMETER IN FUTURE PATCH
-			compile_args = ["arduino_debug","--port",data['port'],"--upload",sketchname]
+			compile_args = ["C:/Program Files (x86)/Arduino/arduino_debug.exe","--port",data['port'],"--upload",sketchname]
 			rc = subprocess.call(compile_args)
 			#0 NO ERROR; 1 IS ERROR
 			if rc == 0:
@@ -35,7 +35,6 @@ def uploadArduino():
 				sys.stdout.write('200')
 		else:
 			sys.stdout.write('We can\'t find the board. Try refreshing COM Ports')
-	#PATH TO ARDUINO?
 
 
 	#WRITE DATA TO STDOUT
