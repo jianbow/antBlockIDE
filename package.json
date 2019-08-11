@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron ."
   },
-  "author": "Army Ants",
+  "author": "Army Ants LL",
   "license": "ISC",
   "dependencies": {
     "electron-store": "^4.0.0",
