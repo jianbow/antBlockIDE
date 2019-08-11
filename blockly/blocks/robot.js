@@ -92,8 +92,6 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 //----------------- MOTION ---------------------
 
   // MOVE FOR A CERTAIN NUMBER OF SECONDS
-  // DECIDE IF DROPDOWN OR SEPARATE BLOCKS FOR FORWARD/BACKWAR/LEFT/RIGHT
-  // THEN ADD DROPDOWN MENU OR ADDITIONAL BLOCKS
   {
     "type": "robot_moveTimed",
     "message0": "%1 at %2% for %3 sec",
@@ -108,11 +106,13 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 		},
         {
 			"type": "input_value",
-			"name": "SPEED"
+			"name": "SPEED",
+			"check": "Number"
         },
 		{
 			"type": "input_value",
-			"name": "TIME"
+			"name": "TIME",
+			"check": "Number"
 		}
     ],
     "colour": motionHue,
@@ -121,7 +121,6 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   },
  
   //MOVE FORWARD/BACKWAR/LEFT/RIGHT
-  //IMPLEMENT DROPDOWN MENU OR ADDITIONAL BLOCKS
   {
     "type": "robot_move",
     "message0": "%1 at %2% speed",
@@ -136,7 +135,8 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 		},
         {
 			"type": "input_value",
-			"name": "SPEED"
+			"name": "SPEED",
+			"check": "Number"
         }
     ],
     "colour": motionHue,

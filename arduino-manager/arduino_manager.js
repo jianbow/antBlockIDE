@@ -55,7 +55,7 @@ function upload(inputCode) {
     //currently, this includes a default blink wired to pin 8. replace this with code generated from blockly generator. 
     //MAKE THIS EQUAL TO THE PASSED IN PARAMETER
     var code = "void setup() {pinMode(8,OUTPUT); digitalWrite(8,HIGH);} void loop() {} ";
-    request.send(inputCode);
+    request.send(inputCode.toString());
 	//alert("done");
 }
 

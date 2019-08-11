@@ -189,7 +189,7 @@ Blockly.BlockSvg.TAB_PATH_DOWN = 'v 5 c 0,10 -' + Blockly.BlockSvg.TAB_WIDTH +
 	
 Blockly.BlockSvg.TAB_PATH_DOWN_LOGIC = 'v 5 l -10 ,7.5 l 10,7.5';
 
-Blockly.BlockSvg.TAB_PATH_DOWN_STRING = 'v 7 h -8 v 11 h 8 v 2';
+Blockly.BlockSvg.TAB_PATH_DOWN_STRING = 'v 7 h -6 v 11 h 6 v 2';
 
 /**
  * SVG path for drawing a horizontal puzzle tab from top to bottom with
@@ -420,7 +420,6 @@ Blockly.BlockSvg.prototype.renderCompute_ = function(iconWidth) {
   var inputList = this.inputList;
   var inputRows = [];
   inputRows.rightEdge = iconWidth + Blockly.BlockSvg.SEP_SPACE_X * 2;
-  console.log(inputRows.rightEdge);
   if (this.previousConnection || this.nextConnection) {
     inputRows.rightEdge = Math.max(inputRows.rightEdge,
         Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.SEP_SPACE_X);
@@ -841,7 +840,7 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(pathObject) {
 	if(this.outputConnection.getCheck() == "Boolean"){
       steps.push('l -10,-7.5 l 10,-7.5');
 	}else if(this.outputConnection.getCheck() == "String"){
-	  steps.push('v -2 h -8 v -11 h 8 v 2');
+	  steps.push('v -2 h -6 v -11 h 6 v 2');
 	}else{
       steps.push('c 0,-10 -' + Blockly.BlockSvg.TAB_WIDTH + ',8 -' +
         Blockly.BlockSvg.TAB_WIDTH + ',-7.5 s ' + Blockly.BlockSvg.TAB_WIDTH +
@@ -856,8 +855,8 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(pathObject) {
 	    highlightSteps.push('l -10,-7.5 m 10, -7.5');	//('l -10,-7.5 l 10,-7.5');
 	    highlightSteps.push('V 0.5 H 1');
 	  }else if(this.outputConnection.getCheck() == "String"){
-		  highlightSteps.push('V', Blockly.BlockSvg.TAB_HEIGHT - 1);
-		  highlightSteps.push('l -8,0 v -11 l 8,0')
+		  highlightSteps.push('V', Blockly.BlockSvg.TAB_HEIGHT - 2);
+		  highlightSteps.push('l -6,0 v -11 l 6,0')
 	  }else{
         highlightSteps.push('V', Blockly.BlockSvg.TAB_HEIGHT - 1.5);
         highlightSteps.push('m', (Blockly.BlockSvg.TAB_WIDTH * -0.92) +
@@ -1108,6 +1107,8 @@ Blockly.BlockSvg.prototype.renderExternalValueInput_ = function(pathObject, row,
 Blockly.BlockSvg.prototype.renderDummyInput_ = function(pathObject, row,
     cursor, rightEdge, hasValue) {
   var steps = pathObject.steps;
+  //added
+  //steps.push('v', row.height);
   var highlightSteps = pathObject.highlightSteps;
   var input = row[0];
   var fieldX = cursor.x;
@@ -1125,7 +1126,11 @@ Blockly.BlockSvg.prototype.renderDummyInput_ = function(pathObject, row,
     }
   }
   this.renderFields_(input.fieldRow, fieldX, fieldY);
+  //steps.push('h', this.width - Blockly.BlockSvg.NOTCH_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X - 1);
   steps.push('v', row.height);
+  //steps.push('H', 30);
+  //steps.push('h', -(this.width - Blockly.BlockSvg.NOTCH_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X - 1));
+  console.log(steps);
   if (this.RTL) {
     highlightSteps.push('v', row.height - 1);
   }
@@ -1172,13 +1177,15 @@ Blockly.BlockSvg.prototype.renderStatementInput_ = function(pathObject, row,
     }
   }
   this.renderFields_(input.fieldRow, fieldX, fieldY);
+  //var rightSide = cursor.x;
   cursor.x = inputRows.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH;
   steps.push('H', cursor.x);
   steps.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER);
-  steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS - 2); //maybe -1.5
+  steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS - 2.5); // to remove gap
   steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
   steps.push('h 12' + Blockly.BlockSvg.NOTCH_PATH_LEFT); //added
   steps.push('H', inputRows.rightEdge);
+  steps.push('h', this.width - Blockly.BlockSvg.NOTCH_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X - 1);
   if (this.RTL) {
     highlightSteps.push('M',
         (cursor.x - Blockly.BlockSvg.NOTCH_WIDTH +
@@ -1195,11 +1202,11 @@ Blockly.BlockSvg.prototype.renderStatementInput_ = function(pathObject, row,
     highlightSteps.push('M',
         (cursor.x - Blockly.BlockSvg.NOTCH_WIDTH +
          Blockly.BlockSvg.DISTANCE_45_OUTSIDE) + ',' +
-        (cursor.y + row.height - Blockly.BlockSvg.DISTANCE_45_OUTSIDE - 2)); //maybe -1.5
+        (cursor.y + row.height - Blockly.BlockSvg.DISTANCE_45_OUTSIDE - 2.5)); // to remove gap
     highlightSteps.push(
         Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR);
-	highlightSteps.push('h 10 m 18,0');
-    highlightSteps.push('H', inputRows.rightEdge - 0.5);
+	highlightSteps.push('h 10 m 20,0');
+    highlightSteps.push('H', inputRows.rightEdge - 1);	// to remove gap
   }
   // Create statement connection.
   connectionPos.x = this.RTL ? -cursor.x : cursor.x + 1;

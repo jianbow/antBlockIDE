@@ -65,7 +65,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // Block for if/elseif/else condition.
   {
     "type": "controls_if",
-    "message0": " if    %1",		//%{BKY_CONTROLS_IF_MSG_IF}
+    "message0": " if %1 then",		//%{BKY_CONTROLS_IF_MSG_IF}
     "args0": [
       {
         "type": "input_value",
@@ -73,13 +73,14 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
         "check": "Boolean"
       }
     ],
-    "message1": "%{BKY_CONTROLS_IF_MSG_THEN} %1",
+    "message1": " %1",	//%{BKY_CONTROLS_IF_MSG_THEN}
     "args1": [
       {
         "type": "input_statement",
         "name": "DO0"
       }
     ],
+	"inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
     "style": "logic_blocks",
@@ -90,7 +91,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // If/else block that does not use a mutator.
   {
     "type": "controls_ifelse",
-    "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1",
+    "message0": "if %1 then", 	//%{BKY_CONTROLS_IF_MSG_IF}
     "args0": [
       {
         "type": "input_value",
@@ -98,13 +99,14 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
         "check": "Boolean"
       }
     ],
-    "message1": "%{BKY_CONTROLS_IF_MSG_THEN} %1",
+    "message1": " %1",	//%{BKY_CONTROLS_IF_MSG_THEN}
     "args1": [
       {
         "type": "input_statement",
         "name": "DO0"
       }
     ],
+	/*
     "message2": "%{BKY_CONTROLS_IF_MSG_ELSE} %1",
     "args2": [
       {
@@ -112,6 +114,22 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
         "name": "ELSE"
       }
     ],
+	*/
+	"message2": "else %1",
+	"args2": [
+	  {
+		"type": "input_dummy",
+		"name": "ELSE2"
+	  }
+	],
+    "message3": " %1",	//%{BKY_CONTROLS_IF_MSG_ELSE}
+    "args3": [
+      {
+        "type": "input_statement",
+        "name": "ELSE"
+      }
+    ],
+	"inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
     "style": "logic_blocks",
@@ -119,6 +137,48 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
     "extensions": ["controls_if_tooltip"]
   },
+
+  {
+    "type": "controls_ifelse2",
+    "message0": "if %1 then",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "IF0",
+        "check": "Boolean"
+      }
+    ],
+    "message1": "%1",
+    "args1": [
+      {
+        "type": "input_statement",
+        "name": "DO0"
+      }
+    ],
+	//"message2" : "else",
+	"message2": "else %1",
+	"args2": [
+	  {
+		"type": "input_dummy",
+		"name": "ELSE2"
+	  }
+	],
+    "message3": " %1",	//%{BKY_CONTROLS_IF_MSG_ELSE}
+    "args3": [
+      {
+        "type": "input_statement",
+        "name": "ELSE"
+      }
+    ],
+	"inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "logic_blocks",
+    "tooltip": "%{BKYCONTROLS_IF_TOOLTIP_2}",
+    "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
+    "extensions": ["controls_if_tooltip"]
+  },
+
   // Block for comparison operator.
   {
     "type": "logic_compare",
