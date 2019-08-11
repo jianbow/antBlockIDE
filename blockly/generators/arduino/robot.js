@@ -35,15 +35,52 @@ Blockly.Arduino.robot_addSensor = function() {
 	return code;
 }
 
-Blockly.Arduino.robot_sensorPort = function() {
-	var port = this.getFieldValue('PORT');
-	return port;
+Blockly.Arduino.robot_addGyro = function() {
+	var setupName = 'gyro';
+	var setup = 'Gyro gyro();';
+	Blockly.Arduino.setups_[setupName] = setup;
+	var code = '';
+	return code;
+}
+
+Blockly.Arduino.robot_addRemote = function() {
+	var setupName = 'remote';
+	var setup = 'Remote remote();';
+	Blockly.Arduino.setups_[setupName] = setup;
+	var code = '';
+	return code;
+}
+
+Blockly.Arduino.robot_addDisplay = function() {
+	var sensor = this.getFieldValue('SENSOR');
+	var port1 = this.getFieldValue('PORT1');
+	var port2 = this.getFieldValue('PORT2');
+	var setupName = 'display';
+	var setup = 'Display display("' + port1 + '", "' + port2 + '");';
+	Blockly.Arduino.setups_[setupName] = setup;
+	var code = '';
+	return code;
 }
 
 //----------------- MOTION ---------------------
 Blockly.Arduino.robot_moveTimed = function() {
-	var speed = this.getFieldValue('SPEED');
-	var time = 1000 * this.getFieldValue('TIME');
+	var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || 50;
+	if(speed > 100){
+		speed = 100;
+	}else if(!(speed > 0)){
+		speed = 0;
+	}
+	if(this.getInput('SPEED').connection.targetConnection !== null){
+		this.getInput('SPEED').connection.targetConnection.getSourceBlock().setFieldValue(speed, 'NUM');
+	}
+	
+	var time = 1000 * Blockly.Arduino.valueToCode(this, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || 1000;
+	if(time > 0){
+		//console.log('less');
+	}else{
+		time = 0;
+		this.getInput('TIME').connection.targetConnection.getSourceBlock().setFieldValue(time, 'TIME');
+	}
 	var dir = this.getFieldValue('DIR');
 	var code = 'antBot.'
 	if(dir == 'FORWARD'){
@@ -61,7 +98,7 @@ Blockly.Arduino.robot_moveTimed = function() {
 
 Blockly.Arduino.robot_move = function() {
 	var dir = this.getFieldValue('DIR');
-	var speed = this.getFieldValue('SPEED');
+	var speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || 50;
 	var code = 'antBot.'
 	if(dir == 'FORWARD'){
 		code += 'forward';
@@ -77,26 +114,29 @@ Blockly.Arduino.robot_move = function() {
 };
 
 Blockly.Arduino.robot_turnLeftDegrees = function() {
-	var deg = this.getFieldValue('DEG');
-	var code = '//turn left for input degrees with gyro\n';
+	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 15;
+	var code = 'while(antBot.gyro.getAngle() < ' + deg + '){\n  antBot.turnLeft(50);\n}\nantBot.stopMotion();\n';
 	return code;
 }
 
 Blockly.Arduino.robot_turnRightDegrees = function() {
-	var deg = this.getFieldValue('DEG');
-	var code = '//turn right for input degrees with gyro\n';
+	//var deg = this.getFieldValue('DEG');
+	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 15;
+	var code = 'while(antBot.gyro.getAngle() < ' + deg + '){\n  antBot.turnRight(50);\n}\nantBot.stopMotion();\n';
 	return code;
 }
 
 Blockly.Arduino.robot_wheelSpeeds = function() {
-	var left = this.getFieldValue('SPEEDL');
-	var right = this.getFieldValue('SPEEDR');
-	var code = '//set left wheel to left speed input\n//set right wheel to right speed input\n';
+	//var left = this.getFieldValue('SPEEDL');
+	//var right = this.getFieldValue('SPEEDR');
+	var left = Blockly.Arduino.valueToCode(this, 'SPEEDL', Blockly.Arduino.ORDER_ATOMIC) || 50;
+	var right = Blockly.Arduino.valueToCode(this, 'SPEEDR', Blockly.Arduino.ORDER_ATOMIC) || 50;
+	var code = 'antBot.setMotors(' + left + ', ' + right + ');\n';
 	return code;
 }
 
 Blockly.Arduino.robot_stopMotion = function() {
-	var code = '//set left wheel to 0\n//set right wheel to 0\n';
+	var code = 'antBot.stopMotion();\n';
 	return code;
 }
 
@@ -109,7 +149,7 @@ Blockly.Arduino.robot_getDistance = function() {
 	}else if(unit == 'IN'){
 		code += 'In';
 	}
-	code += '();';
+	code += '()';
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 }
 
@@ -121,7 +161,7 @@ Blockly.Arduino.robot_getLineFollower = function() {
 	}else if(side == 'LEFT'){
 		code += 'Left';
 	}
-	code += '();';
+	code += '()';
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 }
 
@@ -137,7 +177,7 @@ Blockly.Arduino.robot_line = function() {
 	}else if(pos == 'LEFT'){
 		code += 'leftOf';
 	}
-	code += 'Line();';
+	code += 'Line()';
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 }
 
@@ -178,16 +218,15 @@ Blockly.Arduino.robot_playNote = function() {
 
 //--------------------- TIMING ----------------------	
 Blockly.Arduino.robot_delay = function() {
-	var time = 1000 * this.getFieldValue('TIME');
+	var time = 1000 * Blockly.Arduino.valueToCode(this, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || '0';
 	var code = 'delay(' + time + ');\n';
 	return code;
 }
 
 Blockly.Arduino.robot_waitUntil = function() {
-	var input = this.inputList[0].connection.getCheck();
-	var type = this.getInput('END').connection.getCheck();
-	var end = this.getFieldValue('END');
-	var code = input + '\n' + type + ' while(!' + end + '){\n\tdelay(1);\n\r}\n';
+	//var end = this.getFieldValue('END');
+	var end = Blockly.Arduino.valueToCode(this, 'END', Blockly.Arduino.ORDER_ATOMIC) || 'false';
+	var code = 'while(!' + end + '){\n  delay(1);\n}\n';
 	return code;
 }
 
