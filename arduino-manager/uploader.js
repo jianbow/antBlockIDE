@@ -18,7 +18,7 @@ function uploadLocal(code) {
             statusMessage = "";
         }
 
-        document.getElementById('message').innerHTML = stdout + "<br>" + error /* + "\n"  error + "\n" +  stderr */;
+        document.getElementById('message').innerHTML = stdout + "<br>" + statusMessage /* + "\n"  error + "\n" +  stderr */;
         changeSpinner(false);
     });
 }

@@ -9,7 +9,7 @@ import subprocess
 #ADD FUNCTIONALITY FOR PB BOARD
 
 def uploadArduino():
-	#HAS THE USER FOUND THE COM PORT?
+	# HAS THE USER FOUND THE COM PORT?
 	with open('./arduino-manager/arduinoSettings.json') as json_file:
 		data = json.load(json_file)
 		if 'port' in data:
@@ -24,7 +24,7 @@ def uploadArduino():
 			#CALLS SUBPROCESS
 
 			#ADD BOARD PARAMETER IN FUTURE PATCH
-			compile_args = ["C:\Program Files (x86)\Arduino\arduino.exe","--port",data['port'],"--upload",sketchname]
+			compile_args = ["C:/Program Files (x86)/Arduino/arduino_debug.exe","--port",data['port'],"--upload",sketchname]
 			rc = subprocess.call(compile_args)
 			#0 NO ERROR; 1 IS ERROR
 			if rc == 0:
@@ -33,9 +33,9 @@ def uploadArduino():
 			else:
 				#200 CODE IS FOR ERROR
 				sys.stdout.write('200')
-		else:
-			sys.stdout.write('We can\'t find the board. Try refreshing COM Ports')
-	#PATH TO ARDUINO?
+	#	else:
+	#		sys.stdout.write('We can\'t find the board. Try refreshing COM Ports')
+	# PATH TO ARDUINO?
 
 
 	#WRITE DATA TO STDOUT
