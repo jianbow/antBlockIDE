@@ -33,9 +33,8 @@ def uploadArduino():
 			else:
 				#200 CODE IS FOR ERROR
 				sys.stdout.write('200')
-	#	else:
-	#		sys.stdout.write('We can\'t find the board. Try refreshing COM Ports')
-	# PATH TO ARDUINO?
+		else:
+			sys.stdout.write('We can\'t find the board. Try refreshing COM Ports')
 
 
 	#WRITE DATA TO STDOUT
