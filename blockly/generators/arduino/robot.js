@@ -269,13 +269,13 @@ Blockly.Arduino.robot_waitUntil = function() {
 }
 
 Blockly.Arduino.robot_getTime = function() {
-	Blockly.Arduino.setups_['timer'] = 'long resetTimer = 0;';
+	Blockly.Arduino.setups_['timerReset'] = 'long resetTime = 0;';
 	var code = 'millis()/1000 - resetTime';
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 }
 
 Blockly.Arduino.robot_resetTimer = function() {
-	Blockly.Arduino.setups_['timer'] = 'long resetTime = 0;';
+	Blockly.Arduino.setups_['timerReset'] = 'long resetTime = 0;';
 	var code = 'resetTime = millis()/1000;\n';
 	return code;
 }
