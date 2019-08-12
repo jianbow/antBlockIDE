@@ -9,7 +9,7 @@ import subprocess
 #ADD FUNCTIONALITY FOR PB BOARD
 
 def uploadArduino():
-	#HAS THE USER FOUND THE COM PORT?
+	# HAS THE USER FOUND THE COM PORT?
 	with open('./arduino-manager/arduinoSettings.json') as json_file:
 		data = json.load(json_file)
 		if 'port' in data:

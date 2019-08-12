@@ -1130,7 +1130,7 @@ Blockly.BlockSvg.prototype.renderDummyInput_ = function(pathObject, row,
   steps.push('v', row.height);
   //steps.push('H', 30);
   //steps.push('h', -(this.width - Blockly.BlockSvg.NOTCH_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X - 1));
-  console.log(steps);
+  //console.log(steps);
   if (this.RTL) {
     highlightSteps.push('v', row.height - 1);
   }
