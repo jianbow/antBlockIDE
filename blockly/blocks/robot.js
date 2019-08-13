@@ -374,6 +374,6 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "colour": timingHue,
     "previousStatement": "Action",
     "nextStatement": "Action"
-  }
+  },
   
 ]);  // END JSON EXTRACT (Do not delete this comment.)

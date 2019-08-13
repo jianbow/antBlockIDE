@@ -44,6 +44,7 @@ Blockly.Constants.Loops.HUE = 120;
 var color = "#00DEB1";
 
 Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
+
   // Block for repeat n times (external number).
   {
     "type": "controls_repeat_ext",
@@ -65,6 +66,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "tooltip": "%{BKY_CONTROLS_REPEAT_TOOLTIP}",
     "helpUrl": "%{BKY_CONTROLS_REPEAT_HELPURL}"
   },
+
   // Block for repeat n times (internal number).
   // The 'controls_repeat_ext' block is preferred as it is more flexible.
   {
@@ -89,6 +91,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "tooltip": "%{BKY_CONTROLS_REPEAT_TOOLTIP}",
     "helpUrl": "%{BKY_CONTROLS_REPEAT_HELPURL}"
   },
+
   // Block for 'do while/until' loop.
   {
     "type": "controls_whileUntil",
@@ -121,6 +124,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "helpUrl": "%{BKY_CONTROLS_WHILEUNTIL_HELPURL}",
     "extensions": ["controls_whileUntil_tooltip"]
   },
+
   // Block for 'for' loop.
   {
     "type": "controls_for",
@@ -165,6 +169,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
       "controls_for_tooltip"
     ]
   },
+
   // Block for 'for each' loop.
   {
     "type": "controls_forEach",
@@ -195,6 +200,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
       "controls_forEach_tooltip"
     ]
   },
+
   // Block for flow statements: continue, break.
   {
     "type": "controls_flow_statements",
@@ -215,7 +221,22 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
       "controls_flow_tooltip",
       "controls_flow_in_loop_check"
     ]
+  },
+
+  //Block for repeat forever
+  {
+      "type": "controls_repeatForever",
+      "message0": "repeat forever",
+      "message1": " %1",	
+      "args1": [{
+          "type": "input_statement",
+          "name": "DO"
+      }],
+      "colour": color,
+      "previousStatement": null,
+      "nextStatement": null
   }
+
 ]);  // END JSON EXTRACT (Do not delete this comment.)
 
 /**
