@@ -220,6 +220,32 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 	"output": "Number"
   },
   
+    //DIGITALWRITE ARDUINO
+  {
+	"type": "arduino_digitalWrite",
+	"message0": "digitalWrite at port %1 for %2", //digitalWrite at port %1 for %2 
+	
+	"args0": [
+	    {
+			"type": "field_dropdown",
+			"name": "Port #",
+			"options": [["port1", "1"],["port2", "2"],["port3","3"]]
+		},
+		{
+			"type": "field_dropdown",
+			"name": "Level",
+			"options": [["HIGH", "HIGH"],["LOW", "LOW"]]
+		},
+	],
+	
+	"colour": sensorHue,
+	"previousStatement": "Action",
+	"nextStatement": "Action"
+  },
+  
+  
+  
+  
   //RETURN BOOLEAN FOR EITHER SIDE OF LINE FOLLOWER
   {
 	"type": "robot_getLineFollower",

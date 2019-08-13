@@ -184,6 +184,13 @@ Blockly.Arduino.robot_getDistance = function() {
 	return [code, Blockly.Arduino.ORDER_ATOMIC];
 }
 
+Blockly.Arduino.arduino_digitalWrite = function() {
+	var port = this.getFieldValue('Port #');
+	var Level = this.getFieldValue('Level');
+	var code = "digitalWrite(" + port + "," + Level + "); \n";
+	return code;
+}
+
 Blockly.Arduino.robot_getLineFollower = function() {
 	var side = this.getFieldValue('SIDE');
 	var code = 'antBot.lineFollower.get';
