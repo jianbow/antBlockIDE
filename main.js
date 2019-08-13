@@ -16,6 +16,8 @@ const { shell } = require('electron');
 //UNCOMMENT THE SHELL OPEN ITME LINE TO RUN THE BATCH FILE TO CREATE LOCAL SERVER FOR ARDUINO
 //shell.openItem(app.getAppPath() + '\\arduino-manager\\load_server.bat');
 console.log(app.getAppPath());
+
+let pathToApp = app.getAppPath();
 //your code
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -31,7 +33,7 @@ var obj = {
 obj.table.push({ ifYou: "readThis", nice: 'job' });
 var json = JSON.stringify(obj);
 var fs = require('fs');
-fs.writeFile('arduino-manager\\arduinoSettings.json', json, 'utf8', function (err) {
+fs.writeFile(pathToApp + '\\arduino-manager\\arduinoSettings.json', json, 'utf8', function (err) {
     if (err) {
         return console.log(err);
     }
@@ -41,13 +43,16 @@ fs.writeFile('arduino-manager\\arduinoSettings.json', json, 'utf8', function (er
 
 //console.log('hooray');
 
+process.env['APP_PATH'] = app.getAppPath();
 
 
 function createWindow () {
   // Create the browser window.
+  //  console.log(app.getPath);
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+      icon: process.env['APP_PATH'] + 'images\codeoutlinedprogrammingsigns_81143.ico',
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         //THIS ONE LINE OF CODE TOOK ME 3 DAYS. ELECTRON DOCS LIE AND SAY NODE API USABLE. CHANGED SINCE VERSION 5, MUST SET TRUE
@@ -72,7 +77,7 @@ function createWindow () {
       //DELETES JSON FILE SO NEXT BOOT DOESN'T HAVE PRESENT. IDEALLY, CHANGE JSON FILE ON CLOSE. THIS WORKS THOUGH.
       const fs = require('fs');
 
-      fs.unlink('arduino-manager/arduinoSettings.json', (err) => {
+      fs.unlink(pathToApp + '/arduino-manager/arduinoSettings.json', (err) => {
           if (err) throw err;
           console.log('path/file.txt was deleted');
       });

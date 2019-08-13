@@ -35,7 +35,7 @@ def serial_ports():
 			#PUT JSON INTO Y
             y = json.dumps(x)
 			#PUT JSON INTO THE TARGET FILE
-            with open('./arduino-manager/arduinoSettings.json', 'w') as outfile:  
+            with open(sys.argv[1] + '/arduino-manager/arduinoSettings.json', 'w') as outfile:  
                 json.dump(x, outfile)
         except (OSError, serial.SerialException):
             pass

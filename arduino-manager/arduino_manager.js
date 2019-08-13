@@ -64,6 +64,7 @@ window.onload = function () {
         var file = fileInput.files[0];
         var textType = /text.*/;
 
+        //CHECK IF FILE IS OF WANTED TYPE
         if (file.type.match(textType)) {
             //ANOTHER IMPORTED JAVASCRIPT LIBRARY
             var reader = new FileReader();
@@ -110,9 +111,9 @@ function checkDevices() {
 
     const { execFile } = require('child_process');
 
-    const child = execFile('python', ["./arduino-manager/comTest.py"], () => {
+    const child = execFile('python', [process.env['APP_PATH'] + "/arduino-manager/comTest.py", process.env['APP_PATH']], () => {
         const fs = require('fs');
-        let rawdata = fs.readFileSync('./arduino-manager/arduinoSettings.json');
+        let rawdata = fs.readFileSync(process.env['APP_PATH'] + '/arduino-manager/arduinoSettings.json');
         let com = JSON.parse(rawdata);
 
         if (com.port != 0 && com.port != null) {

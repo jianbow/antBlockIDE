@@ -10,7 +10,7 @@ import subprocess
 
 def uploadArduino():
 	# HAS THE USER FOUND THE COM PORT?
-	with open('./arduino-manager/arduinoSettings.json') as json_file:
+	with open(sys.argv[2] + '/arduino-manager/arduinoSettings.json') as json_file:
 		data = json.load(json_file)
 		if 'port' in data:
 			#MAKE INO FILE
