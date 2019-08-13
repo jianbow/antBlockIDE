@@ -52,6 +52,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+      icon: process.env['APP_PATH'] + 'images\codeoutlinedprogrammingsigns_81143.ico',
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         //THIS ONE LINE OF CODE TOOK ME 3 DAYS. ELECTRON DOCS LIE AND SAY NODE API USABLE. CHANGED SINCE VERSION 5, MUST SET TRUE
