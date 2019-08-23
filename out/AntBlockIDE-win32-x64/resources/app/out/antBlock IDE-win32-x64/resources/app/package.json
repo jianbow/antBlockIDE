@@ -1,0 +1,19 @@
+{
+  "name": "antblockide",
+  "productName":  "antBlock IDE",
+  "version": "1.0.0",
+  "description": "IDE for Army Ants antBlock",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Army Ants LL",
+  "license": "ISC",
+  "dependencies": {
+    "electron-store": "^4.0.0",
+    "file-saver": "^2.0.2",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "python-shell": "^1.0.7"
+  }
+}
