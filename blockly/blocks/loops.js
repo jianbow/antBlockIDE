@@ -225,18 +225,16 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 
   //Block for repeat forever
   {
-      "type": "controls_repeatForever",
-      "message0": "repeat forever",
-      "message1": " %1",	
-      "args1": [{
-          "type": "input_statement",
-          "name": "DO"
-      }],
-      "colour": color,
-      "previousStatement": null,
-      "nextStatement": null
+    "type": "controls_repeatForever",
+    "message0": "repeat forever",
+    "message1": " %1",	
+    "args1": [{
+      "type": "input_statement",
+      "name": "DO"
+    }],
+    "colour": color,
+    "previousStatement": "Action"
   }
-
 ]);  // END JSON EXTRACT (Do not delete this comment.)
 
 /**
