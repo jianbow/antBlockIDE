@@ -1,6 +1,6 @@
 {
   "name": "antblockide",
-  "productName":  "antBlock IDE",
+  "productName":  "AntBlockIDE",
   "version": "1.0.0",
   "description": "IDE for Army Ants antBlock",
   "main": "main.js",
