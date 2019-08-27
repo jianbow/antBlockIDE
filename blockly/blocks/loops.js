@@ -59,6 +59,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
       "type": "input_statement",
       "name": "DO"
     }],
+	"inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
     //"style": "loop_blocks",
@@ -86,6 +87,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     }],
     "previousStatement": null,
     "nextStatement": null,
+	"inputsInline": true,
     //"style": "loop_blocks",
 	"colour": color,
     "tooltip": "%{BKY_CONTROLS_REPEAT_TOOLTIP}",

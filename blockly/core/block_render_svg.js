@@ -1183,9 +1183,11 @@ Blockly.BlockSvg.prototype.renderStatementInput_ = function(pathObject, row,
   steps.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER);
   steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS - 2.5); // to remove gap
   steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
-  steps.push('h 12' + Blockly.BlockSvg.NOTCH_PATH_LEFT); //added
+  steps.push('h 12' + Blockly.BlockSvg.NOTCH_PATH_LEFT); //add notch
   steps.push('H', inputRows.rightEdge);
-  steps.push('h', this.width - Blockly.BlockSvg.NOTCH_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X - 1);
+  if(this.inputsInline){
+	steps.push('h', this.width - Blockly.BlockSvg.NOTCH_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X - 1);	// align top and bottom edge
+  }
   if (this.RTL) {
     highlightSteps.push('M',
         (cursor.x - Blockly.BlockSvg.NOTCH_WIDTH +

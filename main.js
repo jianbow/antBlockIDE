@@ -3,30 +3,15 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const { shell } = require('electron');
 
-//var fs = require('fs');
-
-//fs.readFile('arduino-manager/temp.txt', 'utf8', function (err, data) {
-//    if (err) throw err;
-//    console.log(data);
-//});
-
-
-// Open a local file in the default app
-
-//UNCOMMENT THE SHELL OPEN ITME LINE TO RUN THE BATCH FILE TO CREATE LOCAL SERVER FOR ARDUINO
-//shell.openItem(app.getAppPath() + '\\arduino-manager\\load_server.bat');
 console.log(app.getAppPath());
 
 let pathToApp = app.getAppPath();
-//your code
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-//store.set('foo.bar', false);
-//console.log(store.get('foo'));
 
-//console.log(app.getPath('userData'));
-
+// Create arduinoSettings.json file to keep track of port.
 var obj = {
     table: []
 };
@@ -37,31 +22,25 @@ fs.writeFile(pathToApp + '\\arduino-manager\\arduinoSettings.json', json, 'utf8'
     if (err) {
         return console.log(err);
     }
-    //console.log('inside function');
-
 });
-
-//console.log('hooray');
 
 process.env['APP_PATH'] = app.getAppPath();
 
-
+// Create browser window.
 function createWindow () {
-  // Create the browser window.
-  //  console.log(app.getPath);
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
       icon: process.env['APP_PATH'] + 'images\codeoutlinedprogrammingsigns_81143.ico',
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
-        //THIS ONE LINE OF CODE TOOK ME 3 DAYS. ELECTRON DOCS LIE AND SAY NODE API USABLE. CHANGED SINCE VERSION 5, MUST SET TRUE
+        // Uncomment when working with uncompressed blockly files.
         nodeIntegration: true
       }
 
   })
 
-  // and load the index.html of the app.
+  // Load the index.html of the app.
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
