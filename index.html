@@ -353,11 +353,13 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
       //INJECT BLOCKLY INTO DIV
       var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
-        workspace.addChangeListener(generateCode);
-        //DISABLE BLOCKS THAT AREN'T CONNECTED
+        //DISABLE BLOCKS THAT AREN'T CONNECTED - jerry
+		workspace.addChangeListener(Blockly.Events.disableOrphans);
+		
+		workspace.addChangeListener(generateCode);
+        
 
-	    //workspace.addChangeListener(Blockly.Events.disableOrphans);
-
+	    
         function generateCode() {
     	var code = Blockly.Arduino.workspaceToCode(workspace);
             document.getElementById("code").innerHTML = code;
