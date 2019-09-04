@@ -1,7 +1,11 @@
-// This javascript file includes all the necessary javascript functions to deal with the Arduino side of the antBlockIDE
+// This javascript file includes all the necessary javascript functions to deal with the Arduino side of the antBlockIDE.
 
-//FUNCTION TO MAKE SPINNER WORK.
+// Electron doesn't support alert -- using alert will stop all other threads. This means that Blockly won't work after alert.
+// Instead use dialog.
+const {remote} = require('electron')
+const dialog   = remote.dialog
 
+// Spinner.
 function changeSpinner(status) {
     if (status == false) {
         document.getElementById("uploadMessage").innerHTML = "";
@@ -12,90 +16,61 @@ function changeSpinner(status) {
 
 }
 
-/*function heck() {
-    alert(document.getElementById("port").innerHTML = "<i class='fas fa-file-export mr-1'></i>OOGA");
-}
-
-
-*/
-
-//CONVERTS BLOCKLY TO TEXT
-
+// Converts Blockly to text.
 function save() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
 }
 
-//LOAD BUTTON RUNS THIS 
-
+// Load saved file.
 function loadFile() {
     document.getElementById('loadFile').click();
-    
-
 }
 
-//this is just testing
-
+// This is testing/demo.
 function loadXML(fileEvent) {
-
     alert('asdfasdf');
-
     var selectedFile = fileEvent.target.files[0];
 
-    // However, if you want to do something else like parse into a dataURL to create a virtual URL or upload it to the server, you need to use the FileReader as shown below
-
+    // However, if you want to do something else like parse into a dataURL to create a virtual URL or upload it to the server, you need to use the FileReader as shown below.
     var reader = new FileReader();
     reader.onload = function (event) {
         var fileContent = event.target.result;
         alert('we in');
     }
     alert(reader.readAsText(selectedFile));
-
-
 }
 
-// RUNS ON START, WAITS FOR FILE TO BE LOADED
+// Runs on start, waits for file to be loaded.
 window.onload = function () {
     var fileInput = document.getElementById('loadFile');
-    //var fileDisplayArea = document.getElementById('fileDisplayArea');
 
-    //WE LOOK FOR CHANGE IN INPUT
+    // Look for a change in input.
     fileInput.addEventListener('change', function (e) {
         var file = fileInput.files[0];
         var textType = /text.*/;
-
-        //CHECK IF FILE IS OF WANTED TYPE
+        // Check if the file is the right type.
         if (file.type.match(textType)) {
-            //ANOTHER IMPORTED JAVASCRIPT LIBRARY
             var reader = new FileReader();
-            //THEN, WE MOVE THE TEXT INTO XML INTO THE WORKSPACE
+            // Move the text into XML and into Blockly.
+			
             reader.onload = function (e) {
-                alert(reader.result);
+				const response = dialog.showMessageBox(null, {message: reader.result});
                 var xml = Blockly.Xml.textToDom(reader.result);
                 Blockly.Xml.domToWorkspace(xml, workspace);
-                //fileDisplayArea.innerText = reader.result;
             }
-
+			
             reader.readAsText(file);
         } else {
             //ESCAPE CODE BABYYY
-            alert('Uh oh. We can\'t load that file');
-            //fileDisplayArea.innerText = "File not supported!"
+            const response = dialog.showMessageBox(null, {message: 'Uh oh. We can\'t load that file'});
         }
     });
-
-
 }
 
-//THIS FUNCTION RUNS COMTEST, WHICH FINDS ALL DEVICES PLUGGED INTO THE COMPUTER AND GIVES THEIR COM PORT
-//SHOULD FIND ALL PORTS, PUT INTO JSON, READ JSON, INJECT INTO DIV
-
-
+// Run comTest, which finds all devices and returns their COM Port. Puts all ports into JSON, reads JSON, and injects into div.
 function checkDevices() {
-
-    // Use child_process.spawn method from
-    // child_process module and assign it
-    // to variable spawn
+    // Use child_process.spawn method from child_process module and assign it to variable spawn.
     //var spawn = require("child_process").spawn;
 
     // Parameters passed in spawn -
@@ -111,17 +86,17 @@ function checkDevices() {
 
     const { execFile } = require('child_process');
 
-    const child = execFile('python', [process.env['APP_PATH'] + "\\arduino-manager\\comTest.py", process.env['APP_PATH']], () => {	//changed / to \
+    const child = execFile('python', [process.env['APP_PATH'] + "\\arduino-manager\\comTest.py", process.env['APP_PATH']], () => {
         const fs = require('fs');
-        let rawdata = fs.readFileSync(process.env['APP_PATH'] + '\\arduino-manager\\arduinoSettings.json');	//changed / to \
+        let rawdata = fs.readFileSync(process.env['APP_PATH'] + '\\arduino-manager\\arduinoSettings.json');
         let com = JSON.parse(rawdata);
 
         if (com.port != 0 && com.port != null) {
             document.getElementById("port").innerHTML = "<i class='fas fa-file-export mr-1'></i> " + com.port;
-            alert('Board Detected at ' + com.port);
+			const response = dialog.showMessageBox(null, {message: 'Board detected at ' + com.port});
         }
         else {
-            alert('No Board Detected');
+			const response = dialog.showMessageBox(null, {message: 'No Board Detected'});
         }
     });
 }
@@ -132,5 +107,6 @@ function saveFile() {
     var blob = new Blob([xml_text], { type: "text/plain;charset=utf-8" });
     saveAs(blob, "untitled");
 }
+
 
 
