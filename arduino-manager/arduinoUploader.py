@@ -6,11 +6,10 @@ import os
 import subprocess
 #pip install pyserial
 
-#ADD FUNCTIONALITY FOR PB BOARD
 
 def uploadArduino():
 	# HAS THE USER FOUND THE COM PORT?
-	with open(sys.argv[2] + '/arduino-manager/arduinoSettings.json') as json_file:
+	with open(sys.argv[2] + '\\arduino-manager\\arduinoSettings.json') as json_file:
 		data = json.load(json_file)
 		if 'port' in data:
 			#MAKE INO FILE
@@ -23,8 +22,7 @@ def uploadArduino():
 
 			#CALLS SUBPROCESS
 
-			#ADD BOARD PARAMETER IN FUTURE PATCH
-			compile_args = ["C:/Program Files (x86)/Arduino/arduino_debug.exe","--port",data['port'],"--upload",sketchname]
+			compile_args = ["C:/Program Files (x86)/Arduino/arduino_debug.exe","--port",data['port'],"--upload",sketchname,"--board", "MiniCore:avr:328:variant=modelPB"]
 			rc = subprocess.call(compile_args)
 			#0 NO ERROR; 1 IS ERROR
 			if rc == 0:
@@ -37,7 +35,5 @@ def uploadArduino():
 			sys.stdout.write('We can\'t find the board. Try refreshing COM Ports')
 
 
-	#WRITE DATA TO STDOUT
-#	sys.stdout.write('please asdfawsdf damn')
 if __name__ == '__main__':
 	uploadArduino()

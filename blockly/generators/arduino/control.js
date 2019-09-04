@@ -94,7 +94,7 @@ Blockly.Arduino.controls_whileUntil = function() {
 }
 
 Blockly.Arduino.controls_repeat_ext = function() {
-  var count = Blockly.Arduino.valueToCode(this, 'TIMES', Blockly.Arduino.ORDER_ATOMIC) || 5;
+  var count = Blockly.Arduino.valueToCode(this, 'TIMES', Blockly.Arduino.ORDER_ATOMIC) || 0;
   var branch = Blockly.Arduino.statementToCode(this, 'DO'); 
   return 'for (int i = 0; i < ' + count + '; i++) {\n' + branch + '}\n';
 }
