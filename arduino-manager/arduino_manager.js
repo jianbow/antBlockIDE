@@ -111,9 +111,9 @@ function checkDevices() {
 
     const { execFile } = require('child_process');
 
-    const child = execFile('python', [process.env['APP_PATH'] + "/arduino-manager/comTest.py", process.env['APP_PATH']], () => {
+    const child = execFile('python', [process.env['APP_PATH'] + "\\arduino-manager\\comTest.py", process.env['APP_PATH']], () => {
         const fs = require('fs');
-        let rawdata = fs.readFileSync(process.env['APP_PATH'] + '/arduino-manager/arduinoSettings.json');
+        let rawdata = fs.readFileSync(process.env['APP_PATH'] + '\\arduino-manager\\arduinoSettings.json');
         let com = JSON.parse(rawdata);
 
         if (com.port != 0 && com.port != null) {
