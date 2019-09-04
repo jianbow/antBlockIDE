@@ -214,7 +214,7 @@
                 document.getElementById("textChanged").innerHTML = "Upload to antBot";
                 break;
             case 3:
-                document.getElementById("textChanged").innerText = "Refresh COM Ports";
+                document.getElementById("textChanged").innerHTML = "Refresh COM Ports";
                 break;
             case 4:
                 document.getElementById("textChanged").innerHTML = "Save";
@@ -228,7 +228,7 @@
     }
 
     function textReverse() {
-		document.getElementById("textChanged").innerText = "";
+		document.getElementById("textChanged").innerHTML = "";
     }
 </script>
 
@@ -354,11 +354,6 @@ Blockly.HSV_VALUE = .85// 0 (inclusive) to 1 (exclusive), defaulting to 0.65
         function generateCode() {
 			var code = Blockly.Arduino.workspaceToCode(workspace);
             document.getElementById("code").innerText = code;
-			//document.getElementById('blocklyText').focus();
-			//document.getElementById('Blockly').disabled = false;
-			//console.log(document.getElementById('blockly'));
-			//$('.blocklyWidgetDiv').prependTo('.modal');
-			//$('.blocklyTooltipDiv').prependTo('.modal');
         }	
     </script>
 

@@ -30,7 +30,6 @@ goog.require('Blockly.Arduino');
 
 Blockly.Arduino.math_number = function() {
   // Numeric value.
-  console.log(this.isEditable());
   var code = window.parseFloat(this.getFieldValue('NUM'));
   // -4.abs() returns -4 in Dart due to strange order of operation choices.
   // -4 is actually an operator and a number.  Reflect this in the order.

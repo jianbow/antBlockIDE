@@ -20,7 +20,7 @@ function uploadLocal(code) {
             statusMessage = "";
         }
 
-        document.getElementById('message').innerHTML = stdout + "<br>" + stderr; /* + "\n"  error + "\n" +  stderr */
+        document.getElementById('message').innerHTML = stderr + "<br>" + stdout + "<br>" + statusMessage; /* + "\n"  error + "\n" +  stderr */
         changeSpinner(false);
     });
 }

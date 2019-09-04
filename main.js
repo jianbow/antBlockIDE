@@ -31,7 +31,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-      icon: process.env['APP_PATH'] + 'images\codeoutlinedprogrammingsigns_81143.ico',
+    icon: path.join(__dirname, '/images/antbot64x64.ico'),  //icon: process.env['APP_PATH'] + 'images\codeoutlinedprogrammingsigns_81143.ico',
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         // Uncomment when working with uncompressed blockly files.
