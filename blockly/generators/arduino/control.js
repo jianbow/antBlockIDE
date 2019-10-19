@@ -71,7 +71,7 @@ Blockly.Arduino.controls_for = function() {
         variable0 + ' >= ' + endVar + ';\n' +
         '    ' + variable0 + ' += (' + startVar + ' <= ' + endVar +
             ') ? 1 : -1) {\n' +
-        branch + '}\n';
+        branch + '}\n\n';
   }
   return code;
 };
@@ -90,13 +90,13 @@ Blockly.Arduino.controls_whileUntil = function() {
   if (until) {
     argument0 = '!' + argument0;
   }
-  return 'while (' + argument0 + ') {\n' + branch + '}\n';
+  return 'while (' + argument0 + ') {\n' + branch + '}\n\n';
 }
 
 Blockly.Arduino.controls_repeat_ext = function() {
   var count = Blockly.Arduino.valueToCode(this, 'TIMES', Blockly.Arduino.ORDER_ATOMIC) || 0;
   var branch = Blockly.Arduino.statementToCode(this, 'DO'); 
-  return 'for (int i = 0; i < ' + count + '; i++) {\n' + branch + '}\n';
+  return 'for (int i = 0; i < ' + count + '; i++) {\n' + branch + '}\n\n';
 }
 
 Blockly.Arduino.controls_flow_statements = function() {
@@ -113,7 +113,7 @@ Blockly.Arduino.controls_flow_statements = function() {
 
 Blockly.Arduino.controls_repeatForever = function () {
     var branch = Blockly.Arduino.statementToCode(this, 'DO');
-    var code = "\nwhile (true) {\n" + branch + "}\n\n";
+    var code = "while (true) {\n" + branch + "}\n\n";
     
     return code;
 }

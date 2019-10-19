@@ -8,50 +8,28 @@ goog.require('Blockly.Arduino');
 
 //---------------- EVENTS ------------------------
 Blockly.Arduino.robot_start = function() {
-	Blockly.Arduino.definitions_['AntBot_library'] = '#include <AntBot.h>\n#include <Ultrasonic.h>\n#include <LineFollower.h>';
+    Blockly.Arduino.definitions_['AntBot_library'] = '#include <AntBot.h>';
+    //\n#include <Ultrasonic.h>\n#include <LineFollower.h>
 	Blockly.Arduino.setups_['antBot_constructor'] = 'AntBot antBot;';
 	var code = '';
 	return code;
 }
 
-Blockly.Arduino.robot_addSensor = function() {
-	var sensor = this.getFieldValue('SENSOR');
-	var port = this.getFieldValue('PORT');
-	var code;
-	if(sensor == 'ULTRA'){
-		code = 'antBot.addUltrasonic("'+port+'");\n';
-	}else if(sensor == 'LINE'){
-		code = 'antBot.addLineFollower("'+port+'");\n';
-	}
-	return code;
-}
+//Blockly.Arduino.robot_addGyro = function() {
+//	var setupName = 'gyro';
+//	var setup = 'Gyro gyro();';
+//	Blockly.Arduino.setups_[setupName] = setup;
+//	var code = '';
+//	return code;
+//}
 
-Blockly.Arduino.robot_addGyro = function() {
-	var setupName = 'gyro';
-	var setup = 'Gyro gyro();';
-	Blockly.Arduino.setups_[setupName] = setup;
-	var code = '';
-	return code;
-}
-
-Blockly.Arduino.robot_addRemote = function() {
-	var setupName = 'remote';
-	var setup = 'Remote remote();';
-	Blockly.Arduino.setups_[setupName] = setup;
-	var code = '';
-	return code;
-}
-
-Blockly.Arduino.robot_addDisplay = function() {
-	var sensor = this.getFieldValue('SENSOR');
-	var port1 = this.getFieldValue('PORT1');
-	var port2 = this.getFieldValue('PORT2');
-	var setupName = 'display';
-	var setup = 'Display display("' + port1 + '", "' + port2 + '");';
-	Blockly.Arduino.setups_[setupName] = setup;
-	var code = '';
-	return code;
-}
+//Blockly.Arduino.robot_addRemote = function() {
+//	var setupName = 'remote';
+//	var setup = 'Remote remote();';
+//	Blockly.Arduino.setups_[setupName] = setup;
+//	var code = '';
+//	return code;
+//}
 
 //----------------- MOTION ---------------------
 Blockly.Arduino.robot_moveTimed = function() {
@@ -91,7 +69,7 @@ Blockly.Arduino.robot_moveTimed = function() {
 	}else if(dir == 'LEFT'){
 		code += 'turnLeft';
 	}
-	code += '(' + speed + ');\ndelay(1000 * ' + time + ');\nantBot.stopMotion();\n';
+	code += '(' + speed + ');\ndelay(1000 * ' + time + ');\nantBot.stopMotion();\n\n';
 	return code;
 }
 
@@ -120,19 +98,21 @@ Blockly.Arduino.robot_move = function() {
 	}else if(dir == 'LEFT'){
 		code += 'turnLeft';
 	}
-	code += '(' + speed + ');\n';
+	code += '(' + speed + ');\n\n';
 	return code;
 };
 
 Blockly.Arduino.robot_turnLeftDegrees = function() {
-	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 0;
-	var code = 'while(antBot.gyro.getAngle() < ' + deg + '){\n  antBot.turnLeft(50);\n}\nantBot.stopMotion();\n';
+    var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 0;
+    var code = 'antBot.gyro.reset();\n';
+	code += 'while(antBot.gyro.getAngle() < ' + deg + ') {\n  antBot.turnLeft(50);\n}\nantBot.stopMotion();\n\n';
 	return code;
 }
 
 Blockly.Arduino.robot_turnRightDegrees = function() {
-	var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 0;
-	var code = 'while(antBot.gyro.getAngle() < ' + deg + '){\n  antBot.turnRight(50);\n}\nantBot.stopMotion();\n';
+    var deg = Blockly.Arduino.valueToCode(this, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || 0;
+    var code = 'antBot.gyro.reset();\n';
+	code += 'while(antBot.gyro.getAngle() > -' + deg + ') {\n  antBot.turnRight(50);\n}\nantBot.stopMotion();\n\n';
 	return code;
 }
 
@@ -163,16 +143,28 @@ Blockly.Arduino.robot_wheelSpeeds = function() {
 		this.getInput('SPEEDR').connection.targetConnection.getSourceBlock().setFieldValue(right, 'NUM');
 	}
 	*/
-	var code = 'antBot.setMotors(' + left + ', ' + right + ');\n';
+	var code = 'antBot.setMotors(' + left + ', ' + right + ');\n\n';
 	return code;
 }
 
 Blockly.Arduino.robot_stopMotion = function() {
-	var code = 'antBot.stopMotion();\n';
+	var code = 'antBot.stopMotion();\n\n';
 	return code;
 }
 
 //--------------------- SENSORS ---------------------
+Blockly.Arduino.robot_changeSensorPort = function () {
+    var sensor = this.getFieldValue('SENSOR');
+    var port = this.getFieldValue('PORT');
+    var code;
+    if (sensor == 'ULTRA') {
+        code = 'antBot.ultrasonicPort("' + port + '");\n\n';
+    } else if (sensor == 'LINE') {
+        code = 'antBot.lineFollowerPort("' + port + '");\n\n';
+    }
+    return code;
+}
+
 Blockly.Arduino.robot_getDistance = function() {
 	var unit = this.getFieldValue('UNIT');
 	var code = 'antBot.ultrasonic.getDist';
@@ -219,11 +211,22 @@ Blockly.Arduino.robot_getAngle = function() {
 }
 
 Blockly.Arduino.robot_resetGyro = function() {
-	var code = 'antBot.gyro.reset();\n';
+	var code = 'antBot.gyro.reset();\n\n';
 	return code;
 }
 
 //--------------------- DISPLAY ---------------------
+Blockly.Arduino.robot_addDisplay = function () {
+    var sensor = this.getFieldValue('SENSOR');
+    var port1 = this.getFieldValue('PORT1');
+    var port2 = this.getFieldValue('PORT2');
+    var setupName = 'display';
+    var setup = 'Display display("' + port1 + '", "' + port2 + '");';
+    Blockly.Arduino.setups_[setupName] = setup;
+    var code = '';
+    return code;
+}
+
 Blockly.Arduino.robot_displayImage = function() {
 	var code = '//display image\n';
 	return code;
@@ -261,13 +264,13 @@ Blockly.Arduino.robot_delay = function() {
 		this.getInput('TIME').connection.targetConnection.getSourceBlock().setFieldValue(time / 1000.0, 'NUM');
 	}		
 	*/
-	var code = 'delay(1000 * ' + time + ');\n';
+	var code = 'delay(1000 * ' + time + ');\n\n';
 	return code;
 }
 
 Blockly.Arduino.robot_waitUntil = function() {
 	var end = Blockly.Arduino.valueToCode(this, 'END', Blockly.Arduino.ORDER_ATOMIC) || 'false';
-	var code = 'while(!' + end + '){\n  delay(1);\n}\n';
+	var code = 'while(!' + end + '){\n  delay(1);\n}\n\n';
 	return code;
 }
 
@@ -279,6 +282,6 @@ Blockly.Arduino.robot_getTime = function() {
 
 Blockly.Arduino.robot_resetTimer = function() {
 	Blockly.Arduino.setups_['timerReset'] = 'long resetTime = 0;';
-	var code = 'resetTime = millis()/1000;\n';
+	var code = 'resetTime = millis()/1000;\n\n';
 	return code;
 }
