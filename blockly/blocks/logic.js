@@ -62,6 +62,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "tooltip": "%{BKY_LOGIC_BOOLEAN_TOOLTIP}",
     "helpUrl": "%{BKY_LOGIC_BOOLEAN_HELPURL}"
   },
+
   // Block for if/elseif/else condition.
   {
     "type": "controls_if",
@@ -88,6 +89,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "mutator": "controls_if_mutator",
     "extensions": ["controls_if_tooltip"]
   },
+
   // If/else block that does not use a mutator.
   {
     "type": "controls_ifelse",

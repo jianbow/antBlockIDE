@@ -26,68 +26,23 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
     "nextStatement": "Action"
   },
  
-  
-  //ADD SENSORS
-  {
-	"type": "robot_addSensor",
-	"message0": "add %1 sensor at %2",
-	"args0": [
-		{
-			"type": "field_dropdown",
-			"name": "SENSOR",
-			"options": [["ultrasonic", "ULTRA"],
-						["line follower", "LINE"]]
-		},
-		{
-			"type": "field_dropdown",
-			"name": "PORT",
-			"options": [["C", "C"],
-						["D", "D"]]			
-		}
-	],
-	"colour": eventsHue,
-	"previousStatement": "Action",
-	"nextStatement": "Action"
-  },
- 
   // ADD GYRO
-  {
-	"type": "robot_addGyro",
-	"message0": "add gyro sensor",
-	"colour": eventsHue,
-	"previousStatement": "Action",
-	"nextStatement": "Action"
-  },
+  //{
+  //  "type": "robot_addGyro",
+  //  "message0": "add gyro sensor",
+  //  "colour": eventsHue,
+  //  "previousStatement": "Action",
+  //  "nextStatement": "Action"
+  //},
   
-  // ADD IR REMOTE
-  {
-	"type": "robot_addRemote",
-	"message0": "add IR remote",
-	"colour": eventsHue,
-	"previousStatement": "Action",
-	"nextStatement": "Action"
-  },
-
-  // ADD DISPLAY 
-  {
-	"type": "robot_addDisplay",
-	"message0": "add LCD display at %1 and %2",
-	"args0": [
-		{
-			"type": "field_dropdown",
-			"name": "PORT1",
-			"options": [["A", "A"]]	
-		},
-		{
-			"type": "field_dropdown",
-			"name": "PORT2",
-			"options": [["B", "B"]]			
-		}
-	],
-	"colour": eventsHue,
-	"previousStatement": "Action",
-	"nextStatement": "Action"
-  },
+  //// ADD IR REMOTE
+  //{
+  //  "type": "robot_addRemote",
+  //  "message0": "add IR remote",
+  //  "colour": eventsHue,
+  //  "previousStatement": "Action",
+  //  "nextStatement": "Action"
+  //},
   
 //----------------- MOTION ---------------------
 
@@ -205,10 +160,33 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   },
   
 //------------------ SENSORS -----------------
+//ADD LINE FOLLOWER OR ULTRASONIC SENSOR
+  {
+      "type": "robot_changeSensorPort",
+      "message0": "change %1 sensor to port %2",
+      "args0": [
+          {
+              "type": "field_dropdown",
+              "name": "SENSOR",
+              "options": [["ultrasonic", "ULTRA"],
+                          ["line follower", "LINE"]]
+          },
+          {
+              "type": "field_dropdown",
+              "name": "PORT",
+              "options": [["C", "C"],
+                          ["D", "D"]]
+          }
+      ],
+      "colour": sensorHue,
+      "previousStatement": "Action",
+      "nextStatement": "Action"
+  },
+
   //RETURN ULTRASONIC DISTANCE IN EITHER CM OR IN
   {
 	"type": "robot_getDistance",
-	"message0": "distance in %1",
+	"message0": "ultrasonic distance in %1",
 	"args0": [
 	    {
 			"type": "field_dropdown",
@@ -223,7 +201,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   //RETURN BOOLEAN FOR EITHER SIDE OF LINE FOLLOWER
   {
 	"type": "robot_getLineFollower",
-	"message0": "%1 side line follower",
+	"message0": "%1 side of line follower",
 	"args0": [
 	    {
 			"type": "field_dropdown",
@@ -244,8 +222,8 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
 			"type": "field_dropdown",
 			"name": "POS",
 			"options": [["on", "ON"],["off", "OFF"],
-						["to the right of", "RIGHT"],
-						["to the left of", "LEFT"]]
+						["on right side of", "RIGHT"],
+						["on left side of", "LEFT"]]
 		}
 	],
 	"colour": sensorHue,
@@ -270,6 +248,27 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   },
  
 //------------------ DISPLAY -------------------
+
+ // ADD DISPLAY 
+  {
+      "type": "robot_addDisplay",
+      "message0": "change LCD display to ports %1 and %2",
+      "args0": [
+          {
+              "type": "field_dropdown",
+              "name": "PORT1",
+              "options": [["A", "A"]]
+          },
+          {
+              "type": "field_dropdown",
+              "name": "PORT2",
+              "options": [["B", "B"]]
+          }
+      ],
+      "colour": displayHue,
+      "previousStatement": "Action",
+      "nextStatement": "Action"
+  },
 
   // DELAY CERTAIN NUMBER OF SECONDS
   {
@@ -362,7 +361,7 @@ Blockly.defineBlocksWithJsonArray([  // BEGIN JSON EXTRACT
   // GET TIME SINCE PROGRAM STARTED
   {
     "type": "robot_getTime",
-    "message0": "timer",
+    "message0": "time passed",
     "colour": timingHue,
 	"output": "Number"
   },
